@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rangkuman Bulanan - Target Harian & Jurnal Ibadah</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Patrick+Hand&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* =========================================================
+           VARIABEL TEMA: DEFAULT BIRU PASTEL (LIGHT) & DARK ELEGAN
+           ========================================================= */
+        :root, [data-theme="light"] {
+            --page-bg: #dbe6fb;
+            --dot-color: #b7cbf2;
+            --poster-bg-top: #eef4ff;
+            --poster-bg-bot: #dce8fc;
+            --poster-border: #ffffff;
+            --poster-shadow: rgba(65, 95, 155, 0.22);
+
+            --cloud-bg: #f6f9ff;
+            --cloud-border: #5a7bb8;
+            --cloud-shadow: #b5c8eb;
+            --title-color: #1f335c;
+
+            --ribbon-bg: #f5ebd6;
+            --ribbon-border: #8c7a5b;
+            --ribbon-text: #2a3b5c;
+
+            --section-bg: #f4f8ff;
+            --section-border: #5a7bb8;
+            --section-shadow: rgba(90, 123, 184, 0.16);
+            --pill-bg: #2f4878;
+            --pill-text: #ffffff;
+            --pill-border: #1e325c;
+
+            --subbox-bg: #dce7fc;
+            --text-main: #1f335c;
+            --text-muted: #466091;
+            --line-color: #6b88bd;
+
+            --cb-bg: #dbe6fb;
+            --cb-border: #6382ba;
+            --cb-checked-bg: #365694;
+            --cb-checked-border: #1f335c;
+
+            --note-cream-bg: #faf4e6;
+            --note-cream-border: #91846c;
+            --note-cream-text: #293959;
+
+            --bow-main: #5372ab;
+            --bow-dark: #3b5687;
+            --bow-stroke: #1f335c;
+            --heart-fill: #6a8fd4;
+            --star-fill: #f5cf6b;
+            --water-fill: #5ca4ea;
+        }
+
+        [data-theme="dark"] {
+            --page-bg: #141312;
+            --dot-color: #2e2b27;
+            --poster-bg-top: #1f1d1b;
+            --poster-bg-bot: #151412;
+            --poster-border: #3d3832;
+            --poster-shadow: rgba(0, 0, 0, 0.7);
+
+            --cloud-bg: #171615;
+            --cloud-border: #d9cbb5;
+            --cloud-shadow: #3d372e;
+            --title-color: #f7f0e4;
+
+            --ribbon-bg: #ebe0cc;
+            --ribbon-border: #3d372e;
+            --ribbon-text: #1f1d1b;
+
+            --section-bg: #f2eadc;
+            --section-border: #c2b299;
+            --section-shadow: rgba(0, 0, 0, 0.35);
+            --pill-bg: #1c1a18;
+            --pill-text: #f5efe4;
+            --pill-border: #d9cbb5;
+
+            --subbox-bg: #dfd4c1;
+            --text-main: #1f1d1b;
+            --text-muted: #4a443b;
+            --line-color: #8c806d;
+
+            --cb-bg: #e3d8c5;
+            --cb-border: #8c806d;
+            --cb-checked-bg: #2b2824;
+            --cb-checked-border: #141312;
+
+            --note-cream-bg: #f2eadc;
+            --note-cream-border: #8c806d;
+            --note-cream-text: #1f1d1b;
+
+            --bow-main: #e6dac3;
+            --bow-dark: #cbbba0;
+            --bow-stroke: #24211e;
+            --heart-fill: #d9c8a9;
+            --star-fill: #e8cf8b;
+            --water-fill: #72a9d6;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: var(--page-bg);
+            background-image: radial-gradient(var(--dot-color) 1.5px, transparent 1.5px);
+            background-size: 26px 26px;
+            min-height: 100vh;
+            overflow-x: hidden;
+            transition: background-color 0.35s ease;
+        }
+
+        .font-title { font-family: 'Fredoka', sans-serif; }
+        .font-hand { font-family: 'Patrick Hand', cursive; }
+
+        .poster-container {
+            background: linear-gradient(180deg, var(--poster-bg-top) 0%, var(--poster-bg-bot) 100%);
+            box-shadow: 0 18px 40px var(--poster-shadow), 0 0 0 5px var(--poster-border);
+            position: relative;
+            transition: all 0.35s ease;
+        }
+
+        .title-text { color: var(--title-color); }
+
+        .journal-card {
+            background: var(--section-bg);
+            border: 2.5px solid var(--section-border);
+            box-shadow: 0 4px 10px var(--section-shadow);
+            border-radius: 22px;
+            position: relative;
+            color: var(--text-main);
+            transition: all 0.35s ease;
+        }
+
+        .section-pill {
+            background: var(--pill-bg);
+            color: var(--pill-text);
+            border: 2px solid var(--pill-border);
+            border-radius: 999px;
+            padding: 3px 16px;
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 600;
+            font-size: 0.92rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 3px 0 rgba(0,0,0,0.12);
+        }
+
+        .sub-panel {
+            background: var(--subbox-bg);
+            border-radius: 14px;
+            transition: background 0.35s ease;
+        }
+        .stat-chip {
+            background: var(--section-bg);
+            border: 2px solid var(--section-border);
+            border-radius: 18px;
+            box-shadow: 0 3px 0 var(--cloud-shadow);
+        }
+        .cal-day {
+            background: var(--section-bg);
+            border: 1.5px solid var(--section-border);
+            border-radius: 10px;
+            transition: transform 0.15s ease;
+        }
+        .cal-day.has-data {
+            background: var(--subbox-bg);
+            font-weight: 700;
+        }
+        .cal-day.is-today {
+            border-color: var(--pill-bg);
+            box-shadow: 0 0 0 2px var(--bow-main);
+        }
+    </style>
+</head>
+<body class="py-4 px-2.5 sm:py-6 sm:px-5 flex flex-col items-center justify-center">
+
+    <!-- PANEL KONTROL ATAS -->
+    <div id="top-bar" class="w-full max-w-4xl mb-4 bg-white/90 backdrop-blur-md border-2 border-blue-200 rounded-2xl p-3 sm:px-5 shadow-sm flex flex-col gap-2 transition-colors duration-300">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+            <div class="flex items-center gap-2 text-xs sm:text-sm font-bold text-blue-900" id="date-container">
+                <span>📅</span>
+                <span id="current-date-label">Memuat tanggal...</span>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-2">
+                <button id="theme-toggle-btn" onclick="toggleTheme()" class="text-xs sm:text-sm font-bold px-3 py-1.5 rounded-xl border transition active:scale-95 flex items-center gap-1.5 bg-blue-50 text-blue-900 border-blue-300 hover:bg-blue-100">
+                    <span id="theme-icon">🌙</span>
+                    <span id="theme-label">Tema Gelap</span>
+                </button>
+
+                <button id="reset-btn" onclick="confirmReset()" class="text-xs sm:text-sm font-bold px-3 py-1.5 rounded-xl border transition active:scale-95 flex items-center gap-1.5 bg-slate-100 text-slate-700 border-slate-300 hover:bg-slate-200">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                    <span>Reset Hari Ini</span>
+                </button>
+            </div>
+        </div>
+
+        <div id="midnight-bar" class="flex flex-wrap items-center justify-between text-[11px] sm:text-xs font-semibold text-blue-800/80 border-t border-blue-100 pt-1.5 gap-2">
+            <span id="save-status-badge">✨ Data Target Harian & Ibadah tersimpan ke arsip bulanan</span>
+            <div class="flex items-center gap-1.5">
+                <span>🕛 Reset otomatis jam 12 malam dalam:</span>
+                <span id="midnight-countdown" class="font-mono font-bold bg-blue-100/80 text-blue-900 px-2 py-0.5 rounded-md">00:00:00</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================================================
+         HALAMAN KHUSUS RANGKUMAN PENCAPAIAN BULANAN (recap.html)
+         ========================================================= -->
+    <section id="recap-page-view" class="flex w-full max-w-4xl flex-col items-center">
+        <div class="poster-container w-full rounded-[32px] p-4 sm:p-6 relative overflow-hidden">
+            
+            <!-- Navigasi Kembali ke index.html -->
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-4 pb-3 border-b-2 border-dashed" style="border-color: var(--section-border);">
+                <button type="button" onclick="closeRecapPage()" class="section-pill cursor-pointer hover:opacity-90 active:scale-95 transition">
+                    <span>←</span>
+                    <span>Kembali ke Index</span>
+                </button>
+                <span class="text-xs font-bold px-3 py-1 rounded-full" style="background: var(--subbox-bg); color: var(--text-main);">
+                    📄 Halaman Rangkuman Bulanan
+                </span>
+            </div>
+
+            <!-- Banner Notifikasi Pergantian Bulan -->
+            <div id="new-month-banner" class="hidden mb-4 p-3.5 rounded-2xl border-2 text-center shadow-xs" style="background: var(--note-cream-bg); border-color: var(--note-cream-border); color: var(--note-cream-text);">
+                <div class="font-title text-base sm:text-lg font-bold flex items-center justify-center gap-1.5">
+                    <span>🎉</span>
+                    <span>Alhamdulillah! Bulan Baru Telah Tiba!</span>
+                    <span>🎉</span>
+                </div>
+                <p class="text-xs sm:text-sm font-semibold mt-0.5">
+                    Ini rangkuman perjuangan dan konsistensi ibadahmu di bulan lalu. MasyaAllah, terus istiqomah ya! ♡
+                </p>
+            </div>
+
+            <!-- Header Rangkuman + Pemilih Bulan -->
+            <div class="flex flex-col items-center text-center mb-5">
+                <div class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-bold mb-2" style="background: var(--ribbon-bg); border: 1.5px solid var(--ribbon-border); color: var(--ribbon-text);">
+                    <span>✨</span>
+                    <span>Rangkuman Konsistensi Bulanan</span>
+                    <span>✨</span>
+                </div>
+
+                <div class="flex items-center justify-center gap-2 sm:gap-3 mt-1">
+                    <button type="button" onclick="changeRecapMonth(-1)" class="w-9 h-9 rounded-xl border-2 flex items-center justify-center font-bold transition active:scale-90 cursor-pointer" style="background: var(--section-bg); border-color: var(--section-border); color: var(--text-main);" title="Bulan Sebelumnya">◀</button>
+                    <h2 id="recap-month-title" class="font-title title-text text-2xl sm:text-4xl font-bold px-2">November 2026</h2>
+                    <button type="button" onclick="changeRecapMonth(1)" class="w-9 h-9 rounded-xl border-2 flex items-center justify-center font-bold transition active:scale-90 cursor-pointer" style="background: var(--section-bg); border-color: var(--section-border); color: var(--text-main);" title="Bulan Berikutnya">▶</button>
+                </div>
+                <p id="recap-subtitle" class="text-xs sm:text-sm font-bold mt-1" style="color: var(--text-muted);">Total 0 hari aktif mengisi jurnal di bulan ini</p>
+            </div>
+
+            <!-- 5 KARTU STATISTIK UTAMA (TERMASUK TARGET HARIAN DARI INDEX.HTML) -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 mb-4" style="color: var(--text-main);">
+                <div class="stat-chip p-3.5 text-center">
+                    <div class="text-2xl sm:text-3xl mb-1">🎯</div>
+                    <div id="stat-target-harian" class="font-title text-xl sm:text-2xl font-bold">0x</div>
+                    <div class="text-xs font-bold opacity-85">Target Harian</div>
+                    <div id="stat-target-days" class="text-[11px] font-semibold opacity-75 mt-0.5">0 Hari Aktif</div>
+                </div>
+
+                <div class="stat-chip p-3.5 text-center">
+                    <div class="text-2xl sm:text-3xl mb-1">🕌</div>
+                    <div id="stat-sholat-fardhu" class="font-title text-xl sm:text-2xl font-bold">0</div>
+                    <div class="text-xs font-bold opacity-85">Sholat Fardhu</div>
+                    <div id="stat-sholat-sunnah" class="text-[11px] font-semibold opacity-75 mt-0.5">+0 Sunnah/Rawatib</div>
+                </div>
+
+                <div class="stat-chip p-3.5 text-center">
+                    <div class="text-2xl sm:text-3xl mb-1">📖</div>
+                    <div id="stat-quran-days" class="font-title text-xl sm:text-2xl font-bold">0 Hari</div>
+                    <div class="text-xs font-bold opacity-85">Interaksi Al-Qur'an</div>
+                    <div id="stat-quran-extra" class="text-[11px] font-semibold opacity-75 mt-0.5">0 Surah Tambahan</div>
+                </div>
+
+                <div class="stat-chip p-3.5 text-center">
+                    <div class="text-2xl sm:text-3xl mb-1">📿</div>
+                    <div id="stat-dzikir-count" class="font-title text-xl sm:text-2xl font-bold">0x</div>
+                    <div class="text-xs font-bold opacity-85">Amalan Dzikir</div>
+                    <div id="stat-kajian-count" class="text-[11px] font-semibold opacity-75 mt-0.5">0 Catatan Kajian</div>
+                </div>
+
+                <div class="stat-chip p-3.5 text-center col-span-2 sm:col-span-1">
+                    <div class="text-2xl sm:text-3xl mb-1">💧</div>
+                    <div id="stat-water-total" class="font-title text-xl sm:text-2xl font-bold">0 Gelas</div>
+                    <div class="text-xs font-bold opacity-85">Minum Air Mineral</div>
+                    <div id="stat-sport-days" class="text-[11px] font-semibold opacity-75 mt-0.5">0 Hari Olahraga</div>
+                </div>
+            </div>
+
+            <!-- RINCIAN PENCAPAIAN 10 TARGET HARIAN DARI INDEX.HTML -->
+            <div class="journal-card p-4 mb-4">
+                <div class="flex items-center justify-between mb-2.5">
+                    <span class="font-title text-sm sm:text-base font-bold flex items-center gap-1.5">
+                        <span>📌</span>
+                        <span>Rekap Target Harian (Index)</span>
+                    </span>
+                    <span class="text-[11px] font-bold opacity-75">Frekuensi tercentang bulan ini</span>
+                </div>
+                <div id="recap-index-targets" class="grid grid-cols-2 sm:grid-cols-5 gap-2 text-xs font-bold"></div>
+            </div>
+
+            <!-- BARIS TENGAH: KALENDER KEAKTIFAN BULAN & DISTRIBUSI MOOD -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-4 mb-4">
+                <div class="journal-card md:col-span-7 p-4">
+                    <div class="flex items-center justify-between mb-2.5">
+                        <span class="font-title text-sm sm:text-base font-bold flex items-center gap-1.5">
+                            <span>🗓️</span>
+                            <span>Kalender Keaktifan Harian</span>
+                        </span>
+                        <span class="text-[11px] font-bold opacity-75">● Ada isian jurnal / target</span>
+                    </div>
+                    <div class="grid grid-cols-7 gap-1 text-center text-[11px] font-bold opacity-75 mb-1.5">
+                        <div>Min</div><div>Sen</div><div>Sel</div><div>Rab</div><div>Kam</div><div>Jum</div><div>Sab</div>
+                    </div>
+                    <div id="recap-calendar-grid" class="grid grid-cols-7 gap-1.5 text-center text-xs"></div>
+                </div>
+
+                <div class="journal-card md:col-span-5 p-4 flex flex-col justify-between gap-3">
+                    <div>
+                        <div class="font-title text-sm sm:text-base font-bold flex items-center gap-1.5 mb-2.5">
+                            <span>🌈</span>
+                            <span>Rekap Mood Bulan Ini</span>
+                        </div>
+                        <div id="recap-mood-bars" class="space-y-2 text-xs font-bold"></div>
+                    </div>
+
+                    <div class="sub-panel p-3 text-xs font-bold space-y-1.5">
+                        <div class="flex justify-between">
+                            <span>🌙 Hari Puasa:</span>
+                            <span id="stat-puasa-days">0 hari</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>💝 Hari Bersedekah:</span>
+                            <span id="stat-sedekah-days">0 hari</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>🗣️ Dakwah Kebaikan:</span>
+                            <span id="stat-dakwah-days">0 hari</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- KUMPULAN CATATAN SYUKUR & EVALUASI BULAN INI -->
+            <div class="journal-card p-4">
+                <div class="font-title text-sm sm:text-base font-bold flex items-center gap-1.5 mb-2.5">
+                    <span>💌</span>
+                    <span>Jejak Syukur, Evaluasi & Intisari Kajian Bulan Ini</span>
+                </div>
+                <div id="recap-notes-list" class="space-y-2 max-h-48 overflow-y-auto pr-1 text-xs"></div>
+            </div>
+
+            <!-- Footer Halaman Rangkuman -->
+            <div class="mt-5 flex flex-wrap items-center justify-between gap-2">
+                <span class="text-xs font-bold title-text">♡ Sedikit demi sedikit, lama-lama jadi bukit ♡</span>
+                <button type="button" onclick="closeRecapPage()" class="section-pill cursor-pointer hover:opacity-90">
+                    <span>← Kembali ke Index</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- MODAL KONFIRMASI RESET -->
+    <div id="reset-modal" class="fixed inset-0 bg-black/40 backdrop-blur-xs z-50 hidden items-center justify-center p-4">
+        <div class="bg-white border-2 border-blue-200 rounded-3xl p-5 max-w-xs w-full text-center shadow-xl">
+            <h3 class="font-title text-lg font-bold text-slate-800 mb-1">Reset Jurnal Hari Ini?</h3>
+            <p class="text-xs text-slate-600 mb-4">Semua centang, isian teks, air minum, dan mood hari ini akan dikosongkan kembali.</p>
+            <div class="flex gap-2">
+                <button onclick="closeResetModal()" class="flex-1 py-2 rounded-xl bg-slate-100 text-slate-700 font-bold text-xs hover:bg-slate-200">Batal</button>
+                <button onclick="executeReset()" class="flex-1 py-2 rounded-xl bg-blue-600 text-white font-bold text-xs hover:bg-blue-700">Ya, Reset</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const STORAGE_KEY_JOURNAL = 'jurnal_ibadah_data_v3';
+        const STORAGE_KEY_DATE = 'jurnal_ibadah_date_v3';
+        const STORAGE_KEY_THEME = 'jurnal_ibadah_theme_v3';
+        const STORAGE_KEY_HISTORY = 'jurnal_ibadah_history_v1';
+
+        const STORAGE_KEY_INDEX_DATA = 'target_harian_data_v2';
+        const STORAGE_KEY_INDEX_DATE = 'target_harian_date_v2';
+        const STORAGE_KEY_INDEX_HISTORY = 'target_harian_history_v1';
+
+        const INDEX_TARGETS_META = [
+            { id: 'tahajud', label: 'Tahajud' },
+            { id: 'quran', label: 'Baca Al-Qur’an' },
+            { id: 'hafalan', label: 'Hafalan Surah' },
+            { id: 'tajwid', label: 'Belajar Tajwid' },
+            { id: 'olahraga', label: 'Olahraga' },
+            { id: 'catatan', label: 'Catatan Praktik' },
+            { id: 'baca_buku', label: 'Membaca Buku' },
+            { id: 'menulis_novel', label: 'Menulis Novel' },
+            { id: 'mas_dani', label: 'Bersama Mas Dani' },
+            { id: 'tidur', label: 'Tidur ≥ 7 Jam' }
+        ];
+
+        let dailyHistory = {};
+        let indexHistory = {};
+        let currentRecapMonthStr = '';
+
+        function getTodayDateString(dateObj = new Date()) {
+            const year = dateObj.getFullYear();
+            const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+            const day = String(dateObj.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+
+        function getMonthString(dateStr) {
+            return dateStr.slice(0, 7);
+        }
+
+        function formatIndonesianDate(dateObj) {
+            return dateObj.toLocaleDateString('id-ID', {
+                weekday: 'long',
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
+            });
+        }
+
+        function formatMonthTitle(monthStr) {
+            const [y, m] = monthStr.split('-').map(Number);
+            const d = new Date(y, m - 1, 1);
+            return d.toLocaleDateString('id-ID', { month: 'long', year: 'numeric' });
+        }
+
+        function hasAnyEntry(entry) {
+            if (!entry) return false;
+            const hasCb = Object.values(entry.checkboxes || {}).some(Boolean);
+            const hasTxt = Object.values(entry.texts || {}).some(v => v && String(v).trim().length > 0);
+            const hasWater = (entry.water || 0) > 0;
+            const hasSport = Boolean(entry.sport);
+            const hasMood = Boolean(entry.mood);
+            return hasCb || hasTxt || hasWater || hasSport || hasMood;
+        }
+
+        function hasAnyIndexTarget(targetObj) {
+            if (!targetObj || typeof targetObj !== 'object') return false;
+            return Object.values(targetObj).some(Boolean);
+        }
+
+        function loadHistoryFromStorage() {
+            try {
+                const rawHist = localStorage.getItem(STORAGE_KEY_HISTORY);
+                dailyHistory = rawHist ? JSON.parse(rawHist) : {};
+            } catch (e) {
+                dailyHistory = {};
+            }
+
+            try {
+                const rawIdxHist = localStorage.getItem(STORAGE_KEY_INDEX_HISTORY);
+                indexHistory = rawIdxHist ? JSON.parse(rawIdxHist) : {};
+            } catch (e) {
+                indexHistory = {};
+            }
+
+            // Sinkronkan data hari ini dari index.html jika belum masuk ke arsip harian
+            const todayStr = getTodayDateString();
+            const idxDate = localStorage.getItem(STORAGE_KEY_INDEX_DATE);
+            const idxRaw = localStorage.getItem(STORAGE_KEY_INDEX_DATA);
+            if (idxDate === todayStr && idxRaw) {
+                try {
+                    const parsedIdx = JSON.parse(idxRaw);
+                    if (hasAnyIndexTarget(parsedIdx)) {
+                        indexHistory[todayStr] = { ...parsedIdx };
+                    } else {
+                        delete indexHistory[todayStr];
+                    }
+                    localStorage.setItem(STORAGE_KEY_INDEX_HISTORY, JSON.stringify(indexHistory));
+                } catch (e) {}
+            }
+        }
+
+        function saveHistoryToStorage() {
+            localStorage.setItem(STORAGE_KEY_HISTORY, JSON.stringify(dailyHistory));
+            localStorage.setItem(STORAGE_KEY_INDEX_HISTORY, JSON.stringify(indexHistory));
+        }
+
+        function applyTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem(STORAGE_KEY_THEME, theme);
+
+            const topBar = document.getElementById('top-bar');
+            const dateContainer = document.getElementById('date-container');
+            const themeBtn = document.getElementById('theme-toggle-btn');
+            const themeIcon = document.getElementById('theme-icon');
+            const themeLabel = document.getElementById('theme-label');
+            const resetBtn = document.getElementById('reset-btn');
+            const midnightBar = document.getElementById('midnight-bar');
+            const countdownEl = document.getElementById('midnight-countdown');
+
+            if (theme === 'dark') {
+                topBar.className = 'w-full max-w-4xl mb-4 bg-[#1f1d1b]/95 backdrop-blur-md border-2 border-[#4a443b] rounded-2xl p-3 sm:px-5 shadow-md flex flex-col gap-2 transition-colors duration-300';
+                dateContainer.className = 'flex items-center gap-2 text-xs sm:text-sm font-bold text-[#f5efe4]';
+                themeBtn.className = 'text-xs sm:text-sm font-bold px-3 py-1.5 rounded-xl border transition active:scale-95 flex items-center gap-1.5 bg-[#ebe0cc] text-[#1f1d1b] border-[#a39784] hover:bg-[#f7f0e4]';
+                themeIcon.textContent = '☀️';
+                themeLabel.textContent = 'Tema Biru';
+                resetBtn.className = 'text-xs sm:text-sm font-bold px-3 py-1.5 rounded-xl border transition active:scale-95 flex items-center gap-1.5 bg-[#2b2824] text-[#e8e1d5] border-[#4a443b] hover:bg-[#38342f]';
+                midnightBar.className = 'flex flex-wrap items-center justify-between text-[11px] sm:text-xs font-semibold text-[#cfc5b4] border-t border-[#36322c] pt-1.5 gap-2';
+                countdownEl.className = 'font-mono font-bold bg-[#2b2824] text-[#f5efe4] px-2 py-0.5 rounded-md border border-[#4a443b]';
+            } else {
+                topBar.className = 'w-full max-w-4xl mb-4 bg-white/90 backdrop-blur-md border-2 border-blue-200 rounded-2xl p-3 sm:px-5 shadow-sm flex flex-col gap-2 transition-colors duration-300';
+                dateContainer.className = 'flex items-center gap-2 text-xs sm:text-sm font-bold text-blue-900';
+                themeBtn.className = 'text-xs sm:text-sm font-bold px-3 py-1.5 rounded-xl border transition active:scale-95 flex items-center gap-1.5 bg-blue-50 text-blue-900 border-blue-300 hover:bg-blue-100';
+                themeIcon.textContent = '🌙';
+                themeLabel.textContent = 'Tema Gelap';
+                resetBtn.className = 'text-xs sm:text-sm font-bold px-3 py-1.5 rounded-xl border transition active:scale-95 flex items-center gap-1.5 bg-slate-100 text-slate-700 border-slate-300 hover:bg-slate-200';
+                midnightBar.className = 'flex flex-wrap items-center justify-between text-[11px] sm:text-xs font-semibold text-blue-800/80 border-t border-blue-100 pt-1.5 gap-2';
+                countdownEl.className = 'font-mono font-bold bg-blue-100/80 text-blue-900 px-2 py-0.5 rounded-md';
+            }
+        }
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme') || 'light';
+            applyTheme(current === 'light' ? 'dark' : 'light');
+        }
+
+        const MOOD_META = {
+            rofl: { emoji: '🤣', label: 'Gembira', color: '#eab308' },
+            happy: { emoji: '😆', label: 'Ceria', color: '#facc15' },
+            love: { emoji: '😍', label: 'Bahagia', color: '#f43f5e' },
+            smile: { emoji: '😊', label: 'Tenang', color: '#38bdf8' },
+            sad: { emoji: '☹️', label: 'Murung', color: '#fb923c' },
+            cry: { emoji: '😭', label: 'Sedih', color: '#60a5fa' }
+        };
+
+        function closeRecapPage() {
+            window.location.href = 'index.html';
+        }
+
+        function changeRecapMonth(offset) {
+            const [y, m] = currentRecapMonthStr.split('-').map(Number);
+            const d = new Date(y, m - 1 + offset, 1);
+            currentRecapMonthStr = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+            document.getElementById('new-month-banner').classList.add('hidden');
+            renderMonthlyRecap(currentRecapMonthStr);
+        }
+
+        function renderMonthlyRecap(monthStr) {
+            document.getElementById('recap-month-title').textContent = formatMonthTitle(monthStr);
+
+            const matchingDates = Object.keys(dailyHistory)
+                .filter(d => d.startsWith(monthStr) && hasAnyEntry(dailyHistory[d]))
+                .sort();
+
+            const matchingIndexDates = Object.keys(indexHistory)
+                .filter(d => d.startsWith(monthStr) && hasAnyIndexTarget(indexHistory[d]))
+                .sort();
+
+            const combinedActiveDays = new Set([...matchingDates, ...matchingIndexDates]);
+            const activeDaysCount = combinedActiveDays.size;
+
+            let targetHarianTotal = 0;
+            const perTargetCounts = {};
+            INDEX_TARGETS_META.forEach(item => { perTargetCounts[item.id] = 0; });
+
+            matchingIndexDates.forEach(dateKey => {
+                const tData = indexHistory[dateKey] || {};
+                INDEX_TARGETS_META.forEach(item => {
+                    if (tData[item.id]) {
+                        targetHarianTotal++;
+                        perTargetCounts[item.id]++;
+                    }
+                });
+            });
+
+            let sholatFardhuTotal = 0;
+            let sholatSunnahTotal = 0;
+            let quranDays = 0;
+            let surahTambahanCount = 0;
+            let dzikirCount = 0;
+            let kajianCount = 0;
+            let waterTotal = 0;
+            let sportDays = 0;
+            let puasaDays = 0;
+            let sedekahDays = 0;
+            let dakwahDays = 0;
+
+            const moodCounts = { rofl: 0, happy: 0, love: 0, smile: 0, sad: 0, cry: 0 };
+            const notesCollection = [];
+
+            const fardhuKeys = ['s5_far_sbh', 's5_far_dzr', 's5_far_asr', 's5_far_mgr', 's5_far_isy'];
+            const sunnahKeys = [
+                's5_qob_sbh', 's5_qob_dzr', 's5_qob_asr', 's5_qob_mgr', 's5_qob_isy',
+                's5_bad_sbh', 's5_bad_dzr', 's5_bad_asr', 's5_bad_mgr', 's5_bad_isy',
+                'sunnah_taubat', 'sunnah_witir', 'sunnah_hajat', 'sunnah_duha', 'sunnah_tahajjud', 'sunnah_custom'
+            ];
+            const dzikirKeys = [
+                'dzikir_pagi', 'dzikir_petang', 'dzikir_istighfar', 'dzikir_sholawat',
+                'dzikir_tasbih', 'dzikir_tahmid', 'dzikir_tahlil', 'dzikir_takbir',
+                'dzikir_yunus', 'dzikir_dinar'
+            ];
+
+            matchingDates.forEach(dateKey => {
+                const entry = dailyHistory[dateKey];
+                const cb = entry.checkboxes || {};
+                const txt = entry.texts || {};
+
+                fardhuKeys.forEach(k => { if (cb[k]) sholatFardhuTotal++; });
+                sunnahKeys.forEach(k => { if (cb[k]) sholatSunnahTotal++; });
+
+                const hasQuranText = ['quran_bacaan_val', 'quran_last_surah', 'quran_murojaah_val', 'quran_hafal_surah']
+                    .some(k => txt[k] && txt[k].trim().length > 0);
+                const hasQuranCb = cb.quran_waqiah || cb.quran_mulk || cb.quran_surah_lain;
+                if (hasQuranText || hasQuranCb) quranDays++;
+                if (cb.quran_waqiah) surahTambahanCount++;
+                if (cb.quran_mulk) surahTambahanCount++;
+                if (cb.quran_surah_lain) surahTambahanCount++;
+
+                dzikirKeys.forEach(k => { if (cb[k]) dzikirCount++; });
+                if ((txt.kajian_judul && txt.kajian_judul.trim()) || (txt.kajian_intisari && txt.kajian_intisari.trim())) {
+                    kajianCount++;
+                }
+
+                waterTotal += Number(entry.water || 0);
+                if (entry.sport === 'ya') sportDays++;
+
+                if (cb.puasa_ya) puasaDays++;
+                if (cb.sedekah_sudah || (txt.sedekah_nominal && txt.sedekah_nominal.trim())) sedekahDays++;
+                if (cb.dakwah_sudah) dakwahDays++;
+
+                if (entry.mood && moodCounts[entry.mood] !== undefined) {
+                    moodCounts[entry.mood]++;
+                }
+
+                const dayNum = Number(dateKey.split('-')[2]);
+                if (txt.evaluasi_harian && txt.evaluasi_harian.trim()) {
+                    notesCollection.push({
+                        day: dayNum,
+                        tag: 'Evaluasi & Syukur',
+                        text: txt.evaluasi_harian.trim(),
+                        mood: entry.mood ? MOOD_META[entry.mood].emoji : '♡'
+                    });
+                }
+                if (txt.kajian_judul && txt.kajian_judul.trim()) {
+                    notesCollection.push({
+                        day: dayNum,
+                        tag: 'Kajian',
+                        text: `${txt.kajian_judul.trim()}${txt.kajian_pemateri ? ' — ' + txt.kajian_pemateri.trim() : ''}`,
+                        mood: '📚'
+                    });
+                }
+            });
+
+            document.getElementById('recap-subtitle').textContent = `Total ${activeDaysCount} hari aktif mengisi target & jurnal di bulan ${formatMonthTitle(monthStr)}`;
+            document.getElementById('stat-target-harian').textContent = `${targetHarianTotal}x`;
+            document.getElementById('stat-target-days').textContent = `${matchingIndexDates.length} Hari Aktif`;
+            document.getElementById('stat-sholat-fardhu').textContent = `${sholatFardhuTotal}x`;
+            document.getElementById('stat-sholat-sunnah').textContent = `+${sholatSunnahTotal} Sunnah & Rawatib`;
+            document.getElementById('stat-quran-days').textContent = `${quranDays} Hari`;
+            document.getElementById('stat-quran-extra').textContent = `${surahTambahanCount} Surah Tambahan`;
+            document.getElementById('stat-dzikir-count').textContent = `${dzikirCount}x`;
+            document.getElementById('stat-kajian-count').textContent = `${kajianCount} Catatan Kajian`;
+            document.getElementById('stat-water-total').textContent = `${waterTotal} Gelas`;
+            document.getElementById('stat-sport-days').textContent = `${sportDays} Hari Olahraga`;
+
+            document.getElementById('stat-puasa-days').textContent = `${puasaDays} hari`;
+            document.getElementById('stat-sedekah-days').textContent = `${sedekahDays} hari`;
+            document.getElementById('stat-dakwah-days').textContent = `${dakwahDays} hari`;
+
+            // Render rincian 10 Target Harian dari index.html
+            const indexTargetsEl = document.getElementById('recap-index-targets');
+            indexTargetsEl.innerHTML = INDEX_TARGETS_META.map(item => {
+                const cnt = perTargetCounts[item.id] || 0;
+                return `
+                    <div class="sub-panel px-2.5 py-2 flex items-center justify-between gap-1.5">
+                        <span class="truncate text-[11px]">${escapeHtml(item.label)}</span>
+                        <span class="shrink-0 px-2 py-0.5 rounded-full text-[10px]" style="background: var(--pill-bg); color: var(--pill-text);">${cnt}x</span>
+                    </div>
+                `;
+            }).join('');
+
+            renderRecapCalendar(monthStr);
+
+            const moodContainer = document.getElementById('recap-mood-bars');
+            const totalMoods = Object.values(moodCounts).reduce((a, b) => a + b, 0) || 1;
+            moodContainer.innerHTML = Object.entries(MOOD_META).map(([key, meta]) => {
+                const count = moodCounts[key] || 0;
+                const widthPct = count > 0 ? Math.max(12, Math.round((count / totalMoods) * 100)) : 0;
+                return `
+                    <div class="flex items-center gap-2">
+                        <span class="w-5 text-center">${meta.emoji}</span>
+                        <span class="w-14 text-[11px]">${meta.label}</span>
+                        <div class="flex-1 h-2.5 rounded-full overflow-hidden" style="background: var(--subbox-bg);">
+                            <div class="h-full rounded-full transition-all duration-300" style="width: ${widthPct}%; background: ${meta.color};"></div>
+                        </div>
+                        <span class="w-6 text-right text-[11px]">${count}x</span>
+                    </div>
+                `;
+            }).join('');
+
+            const notesContainer = document.getElementById('recap-notes-list');
+            if (notesCollection.length === 0) {
+                notesContainer.innerHTML = `
+                    <div class="text-center py-4 opacity-70 font-semibold">
+                        Belum ada catatan evaluasi atau judul kajian yang ditulis di bulan ini. Yuk isi perlahan setiap hari! ♡
+                    </div>
+                `;
+            } else {
+                notesContainer.innerHTML = notesCollection.map(item => `
+                    <div class="sub-panel p-2.5 flex items-start justify-between gap-2">
+                        <div>
+                            <span class="inline-block text-[10px] font-bold px-2 py-0.5 rounded-full mr-1" style="background: var(--pill-bg); color: var(--pill-text);">Tgl ${item.day} • ${item.tag}</span>
+                            <span class="font-hand text-sm font-bold">${escapeHtml(item.text)}</span>
+                        </div>
+                        <span class="text-base shrink-0">${item.mood}</span>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function renderRecapCalendar(monthStr) {
+            const grid = document.getElementById('recap-calendar-grid');
+            const [y, m] = monthStr.split('-').map(Number);
+            const firstDayIndex = new Date(y, m - 1, 1).getDay();
+            const daysInMonth = new Date(y, m, 0).getDate();
+            const todayStr = getTodayDateString();
+
+            let html = '';
+            for (let i = 0; i < firstDayIndex; i++) {
+                html += `<div class="p-1.5 opacity-20"></div>`;
+            }
+
+            for (let d = 1; d <= daysInMonth; d++) {
+                const dateKey = `${monthStr}-${String(d).padStart(2, '0')}`;
+                const entry = dailyHistory[dateKey];
+                const idxEntry = indexHistory[dateKey];
+                const active = hasAnyEntry(entry) || hasAnyIndexTarget(idxEntry);
+                const isToday = dateKey === todayStr;
+                const moodEmoji = entry && entry.mood && MOOD_META[entry.mood]
+                    ? MOOD_META[entry.mood].emoji
+                    : (active ? '♡' : '');
+
+                html += `
+                    <div class="cal-day py-1 px-0.5 flex flex-col items-center justify-center ${active ? 'has-data' : 'opacity-65'} ${isToday ? 'is-today' : ''}">
+                        <span class="text-[11px] leading-none">${d}</span>
+                        <span class="text-[10px] h-3 leading-none mt-0.5">${moodEmoji}</span>
+                    </div>
+                `;
+            }
+            grid.innerHTML = html;
+        }
+
+        function escapeHtml(str) {
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;');
+        }
+
+        function confirmReset() {
+            const modal = document.getElementById('reset-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeResetModal() {
+            const modal = document.getElementById('reset-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function executeReset() {
+            const todayStr = getTodayDateString();
+            const emptyState = { checkboxes: {}, texts: {}, water: 0, sport: null, mood: null };
+            localStorage.setItem(STORAGE_KEY_JOURNAL, JSON.stringify(emptyState));
+            localStorage.setItem(STORAGE_KEY_DATE, todayStr);
+            delete dailyHistory[todayStr];
+
+            localStorage.setItem(STORAGE_KEY_INDEX_DATA, JSON.stringify({}));
+            localStorage.setItem(STORAGE_KEY_INDEX_DATE, todayStr);
+            delete indexHistory[todayStr];
+
+            saveHistoryToStorage();
+
+            const badge = document.getElementById('save-status-badge');
+            if (badge) {
+                badge.textContent = '✅ Tersimpan ke arsip ' + formatMonthTitle(getMonthString(todayStr));
+            }
+            closeResetModal();
+            renderMonthlyRecap(currentRecapMonthStr);
+        }
+
+        function startMidnightCountdown() {
+            const countdownEl = document.getElementById('midnight-countdown');
+            function tick() {
+                const now = new Date();
+                const tomorrow = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0);
+                const diffMs = tomorrow - now;
+                const h = String(Math.floor(diffMs / 3600000)).padStart(2, '0');
+                const m = String(Math.floor((diffMs % 3600000) / 60000)).padStart(2, '0');
+                const s = String(Math.floor((diffMs % 60000) / 1000)).padStart(2, '0');
+                countdownEl.textContent = `${h}:${m}:${s}`;
+            }
+            tick();
+            setInterval(tick, 1000);
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem(STORAGE_KEY_THEME) || 'light';
+            applyTheme(savedTheme);
+
+            loadHistoryFromStorage();
+            document.getElementById('current-date-label').textContent = formatIndonesianDate(new Date());
+
+            const params = new URLSearchParams(window.location.search);
+            const monthParam = params.get('month');
+            const targetMonth = /^\d{4}-(0[1-9]|1[0-2])$/.test(monthParam || '') ? monthParam : null;
+            const isMonthTransition = params.get('new') === '1' && targetMonth !== null;
+
+            currentRecapMonthStr = targetMonth || getMonthString(getTodayDateString());
+            const banner = document.getElementById('new-month-banner');
+            if (isMonthTransition) {
+                banner.classList.remove('hidden');
+            } else {
+                banner.classList.add('hidden');
+            }
+
+            renderMonthlyRecap(currentRecapMonthStr);
+            startMidnightCountdown();
+        });
+    </script>
+</body>
+</html>

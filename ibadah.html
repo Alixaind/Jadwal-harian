@@ -1,0 +1,1519 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Target Harian Ibadah Interaktif</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Patrick+Hand&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* =========================================================
+           VARIABEL TEMA: DEFAULT BIRU PASTEL (LIGHT) & DARK ELEGAN
+           ========================================================= */
+        :root, [data-theme="light"] {
+            --page-bg: #dbe6fb;
+            --dot-color: #b7cbf2;
+            --poster-bg-top: #eef4ff;
+            --poster-bg-bot: #dce8fc;
+            --poster-border: #ffffff;
+            --poster-shadow: rgba(65, 95, 155, 0.22);
+
+            --cloud-bg: #f6f9ff;
+            --cloud-border: #5a7bb8;
+            --cloud-shadow: #b5c8eb;
+            --title-color: #1f335c;
+
+            --ribbon-bg: #f5ebd6;
+            --ribbon-border: #8c7a5b;
+            --ribbon-text: #2a3b5c;
+
+            --section-bg: #f4f8ff;
+            --section-border: #5a7bb8;
+            --section-shadow: rgba(90, 123, 184, 0.16);
+            --pill-bg: #2f4878;
+            --pill-text: #ffffff;
+            --pill-border: #1e325c;
+
+            --subbox-bg: #dce7fc;
+            --text-main: #1f335c;
+            --text-muted: #466091;
+            --line-color: #6b88bd;
+
+            --cb-bg: #dbe6fb;
+            --cb-border: #6382ba;
+            --cb-checked-bg: #365694;
+            --cb-checked-border: #1f335c;
+
+            --note-cream-bg: #faf4e6;
+            --note-cream-border: #91846c;
+            --note-cream-text: #293959;
+
+            --bow-main: #5372ab;
+            --bow-dark: #3b5687;
+            --bow-stroke: #1f335c;
+            --heart-fill: #6a8fd4;
+            --star-fill: #f5cf6b;
+            --water-fill: #5ca4ea;
+        }
+
+        [data-theme="dark"] {
+            --page-bg: #141312;
+            --dot-color: #2e2b27;
+            --poster-bg-top: #1f1d1b;
+            --poster-bg-bot: #151412;
+            --poster-border: #3d3832;
+            --poster-shadow: rgba(0, 0, 0, 0.7);
+
+            --cloud-bg: #171615;
+            --cloud-border: #d9cbb5;
+            --cloud-shadow: #3d372e;
+            --title-color: #f7f0e4;
+
+            --ribbon-bg: #ebe0cc;
+            --ribbon-border: #3d372e;
+            --ribbon-text: #1f1d1b;
+
+            --section-bg: #f2eadc;
+            --section-border: #c2b299;
+            --section-shadow: rgba(0, 0, 0, 0.35);
+            --pill-bg: #1c1a18;
+            --pill-text: #f5efe4;
+            --pill-border: #d9cbb5;
+
+            --subbox-bg: #dfd4c1;
+            --text-main: #1f1d1b;
+            --text-muted: #4a443b;
+            --line-color: #8c806d;
+
+            --cb-bg: #e3d8c5;
+            --cb-border: #8c806d;
+            --cb-checked-bg: #2b2824;
+            --cb-checked-border: #141312;
+
+            --note-cream-bg: #f2eadc;
+            --note-cream-border: #8c806d;
+            --note-cream-text: #1f1d1b;
+
+            --bow-main: #e6dac3;
+            --bow-dark: #cbbba0;
+            --bow-stroke: #24211e;
+            --heart-fill: #d9c8a9;
+            --star-fill: #e8cf8b;
+            --water-fill: #72a9d6;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: var(--page-bg);
+            background-image: radial-gradient(var(--dot-color) 1.5px, transparent 1.5px);
+            background-size: 26px 26px;
+            min-height: 100vh;
+            overflow-x: hidden;
+            transition: background-color 0.35s ease;
+        }
+
+        .font-title { font-family: 'Fredoka', sans-serif; }
+        .font-hand { font-family: 'Patrick Hand', cursive; }
+
+        /* Poster Utama */
+        .poster-container {
+            background: linear-gradient(180deg, var(--poster-bg-top) 0%, var(--poster-bg-bot) 100%);
+            box-shadow: 0 18px 40px var(--poster-shadow), 0 0 0 5px var(--poster-border);
+            position: relative;
+            transition: all 0.35s ease;
+        }
+
+        /* Header Awan & Pita */
+        .cloud-header {
+            background: var(--cloud-bg);
+            border: 3px solid var(--cloud-border);
+            border-radius: 50px;
+            box-shadow: 0 6px 0 var(--cloud-shadow);
+            transition: all 0.35s ease;
+        }
+        .title-text { color: var(--title-color); }
+        .motto-ribbon {
+            background: var(--ribbon-bg);
+            border: 2px solid var(--ribbon-border);
+            color: var(--ribbon-text);
+        }
+
+        /* Kartu Bagian */
+        .journal-card {
+            background: var(--section-bg);
+            border: 2.5px solid var(--section-border);
+            box-shadow: 0 4px 10px var(--section-shadow);
+            border-radius: 22px;
+            position: relative;
+            color: var(--text-main);
+            transition: all 0.35s ease;
+        }
+
+        .section-pill {
+            background: var(--pill-bg);
+            color: var(--pill-text);
+            border: 2px solid var(--pill-border);
+            border-radius: 999px;
+            padding: 3px 16px;
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 600;
+            font-size: 0.92rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 3px 0 rgba(0,0,0,0.12);
+        }
+
+        .sub-panel {
+            background: var(--subbox-bg);
+            border-radius: 14px;
+            transition: background 0.35s ease;
+        }
+
+        /* Kotak Centang Interaktif */
+        .cb-box {
+            width: 24px;
+            height: 24px;
+            min-width: 24px;
+            background: var(--cb-bg);
+            border: 2px solid var(--cb-border);
+            border-radius: 7px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
+            user-select: none;
+        }
+        .cb-box:hover { transform: scale(1.08); }
+        .cb-box:active { transform: scale(0.92); }
+        .cb-box.checked {
+            background: var(--cb-checked-bg);
+            border-color: var(--cb-checked-border);
+        }
+        .cb-box svg {
+            width: 15px;
+            height: 15px;
+            color: #ffffff;
+            opacity: 0;
+            transform: scale(0.3);
+            transition: all 0.18s ease;
+        }
+        .cb-box.checked svg {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Input Teks Garis Titik-Titik Interaktif */
+        .dotted-input {
+            background: transparent;
+            border: none;
+            border-bottom: 1.8px dotted var(--line-color);
+            color: var(--text-main);
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.02rem;
+            padding: 0 4px;
+            outline: none;
+            transition: border-color 0.2s ease, background-color 0.2s ease;
+        }
+        .dotted-input:focus {
+            border-bottom: 2px solid var(--pill-bg);
+            background: rgba(255, 255, 255, 0.35);
+            border-radius: 4px 4px 0 0;
+        }
+        .dotted-input::placeholder {
+            color: var(--text-muted);
+            opacity: 0.45;
+            font-size: 0.85rem;
+        }
+
+        /* Textarea Kajian & Evaluasi */
+        .journal-textarea {
+            background: transparent;
+            border: none;
+            color: var(--text-main);
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.08rem;
+            line-height: 1.55;
+            resize: none;
+            outline: none;
+            width: 100%;
+            background-image: repeating-linear-gradient(transparent, transparent 25px, rgba(120, 140, 175, 0.28) 26px);
+        }
+
+        /* Sticky Note */
+        .note-cream {
+            background: var(--note-cream-bg);
+            border: 2.5px solid var(--note-cream-border);
+            color: var(--note-cream-text);
+        }
+
+        /* MOOD TRACKER */
+        .mood-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+            padding: 6px;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.2s ease;
+            background: transparent;
+            border: 2px solid transparent;
+        }
+        .mood-btn:hover {
+            transform: translateY(-3px) scale(1.06);
+        }
+        .mood-btn .mood-fill {
+            opacity: 0;
+            transition: opacity 0.25s ease;
+        }
+        .mood-btn .mood-outline {
+            stroke: var(--text-main);
+            opacity: 0.75;
+            transition: opacity 0.25s ease;
+        }
+        .mood-btn .mood-label {
+            color: var(--text-muted);
+            opacity: 0.75;
+        }
+
+        .mood-btn.selected {
+            background: var(--subbox-bg);
+            border-color: var(--section-border);
+            transform: scale(1.1);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+        }
+        .mood-btn.selected .mood-fill {
+            opacity: 1;
+        }
+        .mood-btn.selected .mood-outline {
+            stroke: #2a211b;
+            opacity: 1;
+        }
+        .mood-btn.selected .mood-label {
+            color: var(--text-main);
+            opacity: 1;
+            font-weight: 700;
+        }
+
+        /* Tetesan Air Minum */
+        .water-drop {
+            cursor: pointer;
+            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .water-drop:hover { transform: scale(1.15); }
+        .water-drop path {
+            fill: transparent;
+            stroke: var(--text-main);
+            stroke-width: 2.2;
+            transition: fill 0.25s ease;
+        }
+        .water-drop.filled path {
+            fill: var(--water-fill);
+        }
+
+        .progress-track {
+            background: var(--subbox-bg);
+            border: 1.5px solid var(--section-border);
+            border-radius: 999px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            background: linear-gradient(90deg, var(--bow-main), var(--pill-bg));
+            transition: width 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+    </style>
+</head>
+<body class="py-4 px-2.5 sm:py-6 sm:px-5 flex flex-col items-center justify-center">
+
+    <!-- PANEL KONTROL ATAS -->
+    <div id="top-bar" class="w-full max-w-4xl mb-4 bg-white/90 backdrop-blur-md border-2 border-blue-200 rounded-2xl p-3 sm:px-5 shadow-sm flex flex-col gap-2 transition-colors duration-300">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+            <div class="flex items-center gap-2 text-xs sm:text-sm font-bold text-blue-900" id="date-container">
+                <span>📅</span>
+                <span id="current-date-label">Memuat tanggal...</span>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-2">
+                <button id="theme-toggle-btn" onclick="toggleTheme()" class="text-xs sm:text-sm font-bold px-3 py-1.5 rounded-xl border transition active:scale-95 flex items-center gap-1.5 bg-blue-50 text-blue-900 border-blue-300 hover:bg-blue-100">
+                    <span id="theme-icon">🌙</span>
+                    <span id="theme-label">Tema Gelap</span>
+                </button>
+
+                <button id="reset-btn" onclick="confirmReset()" class="text-xs sm:text-sm font-bold px-3 py-1.5 rounded-xl border transition active:scale-95 flex items-center gap-1.5 bg-slate-100 text-slate-700 border-slate-300 hover:bg-slate-200">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                    <span>Reset Hari Ini</span>
+                </button>
+            </div>
+        </div>
+
+        <div id="midnight-bar" class="flex flex-wrap items-center justify-between text-[11px] sm:text-xs font-semibold text-blue-800/80 border-t border-blue-100 pt-1.5 gap-2">
+            <span id="save-status-badge">✨ Data tersimpan otomatis ke arsip bulanan</span>
+            <div class="flex items-center gap-1.5">
+                <span>🕛 Reset otomatis jam 12 malam dalam:</span>
+                <span id="midnight-countdown" class="font-mono font-bold bg-blue-100/80 text-blue-900 px-2 py-0.5 rounded-md">00:00:00</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================================================
+         POSTER JURNAL & TARGET HARIAN
+         ========================================================= -->
+    <main class="poster-container w-full max-w-4xl rounded-[32px] p-3.5 sm:p-6 overflow-hidden">
+
+        <!-- Dekorasi Bunga & Bintang Sudut Kiri Atas -->
+        <div class="absolute -top-2 -left-2 pointer-events-none opacity-95">
+            <svg width="115" height="115" viewBox="0 0 120 120" fill="none">
+                <path d="M25 65C10 60 5 45 15 38C25 45 28 56 25 65Z" fill="#5D826B" stroke="var(--bow-stroke)" stroke-width="2"/>
+                <path d="M55 25C60 10 75 8 80 18C72 26 62 28 55 25Z" fill="#5D826B" stroke="var(--bow-stroke)" stroke-width="2"/>
+                <g transform="translate(36, 36)">
+                    <circle cx="0" cy="-12" r="9" fill="var(--bow-main)" stroke="var(--bow-stroke)" stroke-width="2"/>
+                    <circle cx="11" cy="-4" r="9" fill="var(--bow-main)" stroke="var(--bow-stroke)" stroke-width="2"/>
+                    <circle cx="7" cy="9" r="9" fill="var(--bow-main)" stroke="var(--bow-stroke)" stroke-width="2"/>
+                    <circle cx="-7" cy="9" r="9" fill="var(--bow-main)" stroke="var(--bow-stroke)" stroke-width="2"/>
+                    <circle cx="-11" cy="-4" r="9" fill="var(--bow-main)" stroke="var(--bow-stroke)" stroke-width="2"/>
+                    <circle cx="0" cy="0" r="4.5" fill="var(--star-fill)" stroke="var(--bow-stroke)" stroke-width="1.8"/>
+                </g>
+                <g transform="translate(18, 78) scale(0.65)">
+                    <circle cx="0" cy="-10" r="8" fill="var(--heart-fill)" stroke="var(--bow-stroke)" stroke-width="2"/>
+                    <circle cx="9" cy="-3" r="8" fill="var(--heart-fill)" stroke="var(--bow-stroke)" stroke-width="2"/>
+                    <circle cx="6" cy="8" r="8" fill="var(--heart-fill)" stroke="var(--bow-stroke)" stroke-width="2"/>
+                    <circle cx="-6" cy="8" r="8" fill="var(--heart-fill)" stroke="var(--bow-stroke)" stroke-width="2"/>
+                    <circle cx="-9" cy="-3" r="8" fill="var(--heart-fill)" stroke="var(--bow-stroke)" stroke-width="2"/>
+                    <circle cx="0" cy="0" r="4" fill="var(--star-fill)" stroke="var(--bow-stroke)" stroke-width="1.8"/>
+                </g>
+            </svg>
+        </div>
+
+        <!-- Dekorasi Bunga & Kilau Sudut Kanan Atas -->
+        <div class="absolute -top-1 -right-1 pointer-events-none opacity-95">
+            <svg width="95" height="95" viewBox="0 0 100 100" fill="none">
+                <path d="M78 14L80 20L86 22L80 24L78 30L76 24L70 22L76 20L78 14Z" fill="var(--star-fill)" stroke="var(--bow-stroke)" stroke-width="1.5"/>
+                <path d="M55 12L56.5 16L60.5 17.5L56.5 19L55 23L53.5 19L49.5 17.5L53.5 16L55 12Z" fill="var(--star-fill)"/>
+                <path d="M84 48C92 46 96 54 90 60C84 57 82 52 84 48Z" fill="#5D826B" stroke="var(--bow-stroke)" stroke-width="1.8"/>
+            </svg>
+        </div>
+
+        <!-- HEADER: AWAN TARGET HARIAN + STICKY NOTE KANAN ATAS -->
+        <header class="grid grid-cols-1 md:grid-cols-12 gap-3 items-center mb-4 pt-1 relative z-10">
+            <div class="md:col-span-8 flex flex-col items-center relative">
+                <div class="w-full max-w-md flex items-end justify-between px-6 -mb-4 z-10">
+                    <svg class="w-9 h-7" viewBox="0 0 60 50" fill="none">
+                        <path d="M8 38L4 14L20 25L30 8L40 25L56 14L52 38H8Z" fill="#F5CF6B" stroke="var(--bow-stroke)" stroke-width="3" stroke-linejoin="round"/>
+                        <rect x="8" y="38" width="44" height="6" rx="3" fill="#E3B448" stroke="var(--bow-stroke)" stroke-width="2.5"/>
+                    </svg>
+                    <svg class="w-24 h-11 drop-shadow-sm" viewBox="0 0 120 60" fill="none">
+                        <path d="M48 34L28 54L38 56L45 48L52 55L56 36" fill="var(--bow-dark)" stroke="var(--bow-stroke)" stroke-width="2.5" stroke-linejoin="round"/>
+                        <path d="M72 34L92 54L82 56L75 48L68 55L64 36" fill="var(--bow-dark)" stroke="var(--bow-stroke)" stroke-width="2.5" stroke-linejoin="round"/>
+                        <path d="M55 26C42 10 16 8 16 25C16 40 42 38 55 30Z" fill="var(--bow-main)" stroke="var(--bow-stroke)" stroke-width="2.8" stroke-linejoin="round"/>
+                        <path d="M65 26C78 10 104 8 104 25C104 40 78 38 65 30Z" fill="var(--bow-main)" stroke="var(--bow-stroke)" stroke-width="2.8" stroke-linejoin="round"/>
+                        <rect x="51" y="19" width="18" height="16" rx="7" fill="var(--bow-dark)" stroke="var(--bow-stroke)" stroke-width="2.8"/>
+                    </svg>
+                    <svg class="w-6 h-6" viewBox="0 0 24 24" fill="var(--heart-fill)" stroke="var(--bow-stroke)" stroke-width="2">
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                    </svg>
+                </div>
+
+                <div class="cloud-header w-full max-w-md px-5 pt-4 pb-3.5 text-center">
+                    <h1 class="font-title title-text text-3xl sm:text-5xl font-bold tracking-tight flex items-center justify-center gap-2">
+                        Target Harian
+                        <svg class="w-7 h-7 sm:w-8 sm:h-8 inline-block" viewBox="0 0 24 24" fill="var(--heart-fill)" stroke="var(--bow-stroke)" stroke-width="2">
+                            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                        </svg>
+                    </h1>
+                </div>
+
+                <div class="motto-ribbon -mt-2 z-10 px-4 py-1 rounded-2xl shadow-sm text-center">
+                    <p class="text-xs sm:text-sm font-bold leading-tight">
+                        Sedikit demi sedikit, lama-lama jadi bukit ♡
+                    </p>
+                </div>
+
+                <div class="w-full max-w-md mt-2.5 px-2 flex items-center gap-2.5">
+                    <div class="progress-track flex-1 h-3">
+                        <div id="daily-progress-bar" class="progress-fill h-full w-0 rounded-full"></div>
+                    </div>
+                    <span id="daily-progress-label" class="text-[11px] sm:text-xs font-bold title-text whitespace-nowrap">0% Terisi</span>
+                </div>
+            </div>
+
+            <div class="md:col-span-4 flex justify-center">
+                <div class="note-cream rounded-2xl p-3 text-center shadow-sm relative max-w-[235px] w-full rotate-1">
+                    <svg class="w-10 h-5 mx-auto -mt-5 mb-1" viewBox="0 0 60 35" fill="none">
+                        <path d="M26 16C18 6 4 6 4 16C4 26 18 24 26 18Z" fill="var(--bow-main)" stroke="var(--bow-stroke)" stroke-width="2.5"/>
+                        <path d="M34 16C42 6 56 6 56 16C56 26 42 24 34 18Z" fill="var(--bow-main)" stroke="var(--bow-stroke)" stroke-width="2.5"/>
+                        <circle cx="30" cy="17" r="5" fill="var(--bow-dark)" stroke="var(--bow-stroke)" stroke-width="2.5"/>
+                    </svg>
+                    <p class="font-hand text-base sm:text-[17px] font-bold leading-snug">
+                        Jangan mengejar kesempurnaan dalam sehari, kejar konsistensi dalam jangka panjang. ♡
+                    </p>
+                </div>
+            </div>
+        </header>
+
+        <!-- BARIS 1: SHOLAT LIMA WAKTU & SHOLAT SUNNAH -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-4 mb-4 relative z-10">
+            <div class="journal-card lg:col-span-7 p-3.5 sm:p-4 pt-6 mt-2">
+                <div class="absolute -top-4 left-1/2 -translate-x-1/2 whitespace-nowrap">
+                    <div class="section-pill">
+                        <span>🕌</span>
+                        <span>Sholat Lima Waktu</span>
+                    </div>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-center border-collapse">
+                        <thead>
+                            <tr class="text-xs sm:text-sm font-bold">
+                                <th class="text-left py-1.5 pr-2">SHOLAT</th>
+                                <th class="py-1.5 px-1">SBH</th>
+                                <th class="py-1.5 px-1">DZR</th>
+                                <th class="py-1.5 px-1">ASR</th>
+                                <th class="py-1.5 px-1">MGR</th>
+                                <th class="py-1.5 px-1">ISY</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-xs sm:text-sm font-bold">
+                            <tr>
+                                <td class="text-left py-1.5 pr-2">Qobliyah</td>
+                                <td class="py-1.5"><div class="cb-box" data-cb="s5_qob_sbh"></div></td>
+                                <td class="py-1.5"><div class="cb-box" data-cb="s5_qob_dzr"></div></td>
+                                <td class="py-1.5"><div class="cb-box" data-cb="s5_qob_asr"></div></td>
+                                <td class="py-1.5"><div class="cb-box" data-cb="s5_qob_mgr"></div></td>
+                                <td class="py-1.5"><div class="cb-box" data-cb="s5_qob_isy"></div></td>
+                            </tr>
+                            <tr>
+                                <td class="text-left py-1.5 pr-2">Fardhu</td>
+                                <td class="py-1.5"><div class="cb-box" data-cb="s5_far_sbh"></div></td>
+                                <td class="py-1.5"><div class="cb-box" data-cb="s5_far_dzr"></div></td>
+                                <td class="py-1.5"><div class="cb-box" data-cb="s5_far_asr"></div></td>
+                                <td class="py-1.5"><div class="cb-box" data-cb="s5_far_mgr"></div></td>
+                                <td class="py-1.5"><div class="cb-box" data-cb="s5_far_isy"></div></td>
+                            </tr>
+                            <tr>
+                                <td class="text-left py-1.5 pr-2">Ba'diyah</td>
+                                <td class="py-1.5"><div class="cb-box" data-cb="s5_bad_sbh"></div></td>
+                                <td class="py-1.5"><div class="cb-box" data-cb="s5_bad_dzr"></div></td>
+                                <td class="py-1.5"><div class="cb-box" data-cb="s5_bad_asr"></div></td>
+                                <td class="py-1.5"><div class="cb-box" data-cb="s5_bad_mgr"></div></td>
+                                <td class="py-1.5"><div class="cb-box" data-cb="s5_bad_isy"></div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="journal-card lg:col-span-5 p-3.5 sm:p-4 pt-6 mt-2">
+                <div class="absolute -top-4 left-1/2 -translate-x-1/2 whitespace-nowrap">
+                    <div class="section-pill">
+                        <span>☀️</span>
+                        <span>Sholat Sunnah</span>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-x-3 gap-y-2.5 text-xs sm:text-sm font-bold">
+                    <div class="flex items-start gap-2">
+                        <div class="cb-box mt-0.5" data-cb="sunnah_taubat"></div>
+                        <div class="flex-1 min-w-0">
+                            <div>Taubat</div>
+                            <div class="flex items-center gap-1 text-[11px] font-semibold">
+                                <span>Rakaat:</span>
+                                <input type="text" data-txt="sunnah_taubat_rakaat" class="dotted-input w-full" placeholder="...">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-2">
+                        <div class="cb-box mt-0.5" data-cb="sunnah_witir"></div>
+                        <div class="flex-1 min-w-0">
+                            <div>Witir</div>
+                            <div class="flex items-center gap-1 text-[11px] font-semibold">
+                                <span>Rakaat:</span>
+                                <input type="text" data-txt="sunnah_witir_rakaat" class="dotted-input w-full" placeholder="...">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-2">
+                        <div class="cb-box mt-0.5" data-cb="sunnah_hajat"></div>
+                        <div class="flex-1 min-w-0">
+                            <div>Hajat</div>
+                            <div class="flex items-center gap-1 text-[11px] font-semibold">
+                                <span>Rakaat:</span>
+                                <input type="text" data-txt="sunnah_hajat_rakaat" class="dotted-input w-full" placeholder="...">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-2">
+                        <div class="cb-box mt-0.5" data-cb="sunnah_duha"></div>
+                        <div class="flex-1 min-w-0">
+                            <div>Duha</div>
+                            <div class="flex items-center gap-1 text-[11px] font-semibold">
+                                <span>Rakaat:</span>
+                                <input type="text" data-txt="sunnah_duha_rakaat" class="dotted-input w-full" placeholder="...">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-2">
+                        <div class="cb-box mt-0.5" data-cb="sunnah_tahajjud"></div>
+                        <div class="flex-1 min-w-0">
+                            <div>Tahajjud</div>
+                            <div class="flex items-center gap-1 text-[11px] font-semibold">
+                                <span>Rakaat:</span>
+                                <input type="text" data-txt="sunnah_tahajjud_rakaat" class="dotted-input w-full" placeholder="...">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-2">
+                        <div class="cb-box mt-0.5" data-cb="sunnah_custom"></div>
+                        <div class="flex-1 min-w-0">
+                            <input type="text" data-txt="sunnah_custom_name" class="dotted-input w-full text-xs font-bold" placeholder="Sholat lain...">
+                            <div class="flex items-center gap-1 text-[11px] font-semibold mt-0.5">
+                                <span>Rakaat:</span>
+                                <input type="text" data-txt="sunnah_custom_rakaat" class="dotted-input w-full" placeholder="...">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BARIS 2: INTERAKSI DENGAN AL-QURAN -->
+        <section class="journal-card p-3.5 sm:p-4 pt-6 mb-4 mt-3 relative z-10">
+            <div class="absolute -top-4 left-1/2 -translate-x-1/2 whitespace-nowrap">
+                <div class="section-pill">
+                    <span>📖</span>
+                    <span>Interaksi dengan Al-Quran</span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-3 items-stretch text-xs sm:text-sm font-bold">
+                <div class="sub-panel lg:col-span-2 p-2.5 flex flex-col justify-between text-center">
+                    <span>Bacaan</span>
+                    <input type="text" data-txt="quran_bacaan_val" class="dotted-input text-center my-1 font-bold" placeholder="isi di sini">
+                    <span class="text-[11px] opacity-80">Juz/lbr/hlm</span>
+                </div>
+
+                <div class="lg:col-span-3 flex flex-col justify-between gap-1.5 px-1">
+                    <div class="font-bold">Bacaan terakhir:</div>
+                    <div class="flex items-center gap-1.5 text-xs">
+                        <span class="w-11">Surah</span>
+                        <input type="text" data-txt="quran_last_surah" class="dotted-input flex-1">
+                    </div>
+                    <div class="flex items-center gap-1.5 text-xs">
+                        <span class="w-11">Ayat</span>
+                        <input type="text" data-txt="quran_last_ayat" class="dotted-input flex-1">
+                    </div>
+                    <div class="flex items-center gap-1.5 text-xs">
+                        <span class="w-11">Hlm</span>
+                        <input type="text" data-txt="quran_last_hlm" class="dotted-input flex-1">
+                    </div>
+                </div>
+
+                <div class="sub-panel lg:col-span-2 p-2.5 flex flex-col justify-between text-center">
+                    <span>Muroja'ah</span>
+                    <input type="text" data-txt="quran_murojaah_val" class="dotted-input text-center my-1 font-bold" placeholder="isi di sini">
+                    <span class="text-[11px] opacity-80">Srk/juz/hlm</span>
+                </div>
+
+                <div class="lg:col-span-2 flex flex-col justify-between gap-1.5 px-1">
+                    <div class="font-bold">Hafalan hari ini:</div>
+                    <div class="flex items-center gap-1.5 text-xs">
+                        <span class="w-10">Surah</span>
+                        <input type="text" data-txt="quran_hafal_surah" class="dotted-input flex-1">
+                    </div>
+                    <div class="flex items-center gap-1.5 text-xs">
+                        <span class="w-10">Ayat</span>
+                        <input type="text" data-txt="quran_hafal_ayat" class="dotted-input flex-1">
+                    </div>
+                    <div class="flex items-center gap-1.5 text-xs">
+                        <span class="w-10">Hlm</span>
+                        <input type="text" data-txt="quran_hafal_hlm" class="dotted-input flex-1">
+                    </div>
+                </div>
+
+                <div class="sub-panel lg:col-span-3 p-2.5 flex flex-col justify-between">
+                    <div class="text-center border-b border-current/15 pb-1 mb-1.5">Surah Tambahan</div>
+                    <div class="space-y-1.5 text-xs">
+                        <div class="flex items-center gap-2">
+                            <div class="cb-box w-5 h-5 min-w-[20px]" data-cb="quran_waqiah"></div>
+                            <span>Al-Waqi'ah</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <div class="cb-box w-5 h-5 min-w-[20px]" data-cb="quran_mulk"></div>
+                            <span>Al-Mulk</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <div class="cb-box w-5 h-5 min-w-[20px]" data-cb="quran_surah_lain"></div>
+                            <input type="text" data-txt="quran_surah_lain_txt" class="dotted-input flex-1" placeholder="Surah lain...">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BARIS 3: DZIKIR DAN SHOLAWAT & KAJIAN -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-4 mb-4 relative z-10">
+            <div class="journal-card lg:col-span-6 p-3.5 sm:p-4 pt-6 mt-2">
+                <div class="absolute -top-4 left-1/2 -translate-x-1/2 whitespace-nowrap">
+                    <div class="section-pill">
+                        <span>📿</span>
+                        <span>Dzikir dan Sholawat</span>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-x-3 gap-y-2.5 text-xs sm:text-sm font-bold">
+                    <div class="flex items-center gap-2">
+                        <div class="cb-box" data-cb="dzikir_pagi"></div>
+                        <span>Dzikir pagi</span>
+                    </div>
+
+                    <div class="flex items-center gap-2">
+                        <div class="cb-box" data-cb="dzikir_petang"></div>
+                        <span>Dzikir petang</span>
+                    </div>
+
+                    <div class="flex items-start gap-2">
+                        <div class="cb-box mt-0.5" data-cb="dzikir_istighfar"></div>
+                        <div class="flex-1 min-w-0">
+                            <div>Istighfar</div>
+                            <div class="flex items-center gap-1 text-[11px] font-semibold">
+                                <span>Jumlah:</span>
+                                <input type="text" data-txt="dzikir_istighfar_jml" class="dotted-input w-full" placeholder="...">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-2">
+                        <div class="cb-box mt-0.5" data-cb="dzikir_sholawat"></div>
+                        <div class="flex-1 min-w-0">
+                            <div>Sholawat</div>
+                            <div class="flex items-center gap-1 text-[11px] font-semibold">
+                                <span>Jumlah:</span>
+                                <input type="text" data-txt="dzikir_sholawat_jml" class="dotted-input w-full" placeholder="...">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-2">
+                        <div class="cb-box mt-0.5" data-cb="dzikir_tasbih"></div>
+                        <div class="flex-1 min-w-0">
+                            <div>Tasbih</div>
+                            <div class="flex items-center gap-1 text-[11px] font-semibold">
+                                <span>Jumlah:</span>
+                                <input type="text" data-txt="dzikir_tasbih_jml" class="dotted-input w-full" placeholder="...">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-2">
+                        <div class="cb-box mt-0.5" data-cb="dzikir_tahmid"></div>
+                        <div class="flex-1 min-w-0">
+                            <div>Tahmid</div>
+                            <div class="flex items-center gap-1 text-[11px] font-semibold">
+                                <span>Jumlah:</span>
+                                <input type="text" data-txt="dzikir_tahmid_jml" class="dotted-input w-full" placeholder="...">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-2">
+                        <div class="cb-box mt-0.5" data-cb="dzikir_tahlil"></div>
+                        <div class="flex-1 min-w-0">
+                            <div>Tahlil</div>
+                            <div class="flex items-center gap-1 text-[11px] font-semibold">
+                                <span>Jumlah:</span>
+                                <input type="text" data-txt="dzikir_tahlil_jml" class="dotted-input w-full" placeholder="...">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-2">
+                        <div class="cb-box mt-0.5" data-cb="dzikir_takbir"></div>
+                        <div class="flex-1 min-w-0">
+                            <div>Takbir</div>
+                            <div class="flex items-center gap-1 text-[11px] font-semibold">
+                                <span>Jumlah:</span>
+                                <input type="text" data-txt="dzikir_takbir_jml" class="dotted-input w-full" placeholder="...">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-2">
+                        <div class="cb-box mt-0.5" data-cb="dzikir_yunus"></div>
+                        <div class="flex-1 min-w-0">
+                            <div class="leading-tight">Doa Nabi Yunus</div>
+                            <div class="flex items-center gap-1 text-[11px] font-semibold">
+                                <span>Jumlah:</span>
+                                <input type="text" data-txt="dzikir_yunus_jml" class="dotted-input w-full" placeholder="...">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-2">
+                        <div class="cb-box mt-0.5" data-cb="dzikir_dinar"></div>
+                        <div class="flex-1 min-w-0">
+                            <div class="leading-tight">Ayat Seribu Dinar</div>
+                            <div class="flex items-center gap-1 text-[11px] font-semibold">
+                                <span>Jumlah:</span>
+                                <input type="text" data-txt="dzikir_dinar_jml" class="dotted-input w-full" placeholder="...">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="journal-card lg:col-span-6 p-3.5 sm:p-4 pt-6 mt-2 flex flex-col">
+                <div class="absolute -top-4 left-1/2 -translate-x-1/2 whitespace-nowrap">
+                    <div class="section-pill">
+                        <span>📚</span>
+                        <span>Kajian</span>
+                    </div>
+                </div>
+
+                <div class="sub-panel p-2.5 space-y-1.5 text-xs sm:text-sm font-bold mb-2.5">
+                    <div class="flex items-center gap-2">
+                        <span class="w-16">Judul:</span>
+                        <input type="text" data-txt="kajian_judul" class="dotted-input flex-1 font-bold" placeholder="Tulis judul kajian...">
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="w-16">Pemateri:</span>
+                        <input type="text" data-txt="kajian_pemateri" class="dotted-input flex-1 font-bold" placeholder="Nama ustadz / pemateri...">
+                    </div>
+                </div>
+
+                <div class="text-center font-bold text-xs sm:text-sm tracking-wider mb-1">INTISARI:</div>
+                <textarea data-txt="kajian_intisari" rows="6" class="journal-textarea flex-1 p-1.5" placeholder="Tulis ringkasan atau hikmah kajian hari ini di sini..."></textarea>
+            </div>
+        </section>
+
+        <!-- BARIS 4: IBADAH LAIN, AIR MINERAL, OLAHRAGA, MOOD & EVALUASI HARIAN -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-4 mb-4 relative z-10">
+            <div class="journal-card lg:col-span-5 p-3.5 sm:p-4 pt-6 mt-2 flex flex-col justify-between">
+                <div class="absolute -top-4 left-1/2 -translate-x-1/2 whitespace-nowrap">
+                    <div class="section-pill">
+                        <span>⭐</span>
+                        <span>Ibadah Lain</span>
+                    </div>
+                </div>
+
+                <div class="space-y-3 text-xs sm:text-sm font-bold">
+                    <div class="flex items-center justify-between gap-2">
+                        <span class="leading-tight">Apakah kamu puasa hari ini?</span>
+                        <div class="flex items-center gap-2.5 shrink-0">
+                            <label class="flex items-center gap-1 cursor-pointer">
+                                <div class="cb-box" data-cb="puasa_ya" data-group="puasa"></div>
+                                <span>Ya</span>
+                            </label>
+                            <label class="flex items-center gap-1 cursor-pointer">
+                                <div class="cb-box" data-cb="puasa_tidak" data-group="puasa"></div>
+                                <span>Tidak</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-between gap-2">
+                        <span>Dakwah</span>
+                        <div class="flex items-center gap-2.5 shrink-0">
+                            <label class="flex items-center gap-1 cursor-pointer">
+                                <div class="cb-box" data-cb="dakwah_sudah" data-group="dakwah"></div>
+                                <span>Sudah</span>
+                            </label>
+                            <label class="flex items-center gap-1 cursor-pointer">
+                                <div class="cb-box" data-cb="dakwah_belum" data-group="dakwah"></div>
+                                <span>Belum</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="flex items-center justify-between gap-2">
+                            <span class="leading-tight">Sudahkah kamu sedekah hari ini?</span>
+                            <div class="flex items-center gap-2.5 shrink-0">
+                                <label class="flex items-center gap-1 cursor-pointer">
+                                    <div class="cb-box" data-cb="sedekah_sudah" data-group="sedekah"></div>
+                                    <span>Sudah</span>
+                                </label>
+                                <label class="flex items-center gap-1 cursor-pointer">
+                                    <div class="cb-box" data-cb="sedekah_belum" data-group="sedekah"></div>
+                                    <span>Belum</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-1.5 mt-1.5 pl-1">
+                            <span>IDR</span>
+                            <input type="text" data-txt="sedekah_nominal" class="dotted-input flex-1 font-bold" placeholder="Nominal sedekah (opsional)...">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-7 flex flex-col gap-4 mt-2">
+                <div class="grid grid-cols-1 sm:grid-cols-12 gap-3">
+                    <div class="journal-card sm:col-span-8 p-3 pt-5 text-center">
+                        <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 whitespace-nowrap">
+                            <div class="section-pill text-xs py-0.5 px-3">
+                                <span>💧</span>
+                                <span>Minum Air Mineral (liter)</span>
+                            </div>
+                        </div>
+                        <div id="water-drops-container" class="flex items-center justify-center gap-2 sm:gap-2.5 pt-1"></div>
+                    </div>
+
+                    <div class="journal-card sm:col-span-4 p-3 pt-5 text-center flex flex-col justify-center">
+                        <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 whitespace-nowrap">
+                            <div class="section-pill text-xs py-0.5 px-3">
+                                <span>🏃‍♀️</span>
+                                <span>Olahraga</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-center gap-2 text-xs sm:text-sm font-bold pt-1">
+                            <button type="button" id="sport-ya" onclick="setSport('ya')" class="px-2.5 py-0.5 rounded-lg border border-transparent transition">Ya</button>
+                            <span>/</span>
+                            <button type="button" id="sport-tidak" onclick="setSport('tidak')" class="px-2.5 py-0.5 rounded-lg border border-transparent transition">Tidak</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="journal-card p-3 pt-5">
+                    <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 whitespace-nowrap">
+                        <div class="section-pill text-xs py-0.5 px-3.5">
+                            <span>💭</span>
+                            <span>Mood Hari Ini</span>
+                        </div>
+                    </div>
+
+                    <div id="mood-container" class="grid grid-cols-6 gap-1 sm:gap-2 pt-1">
+                        <button type="button" class="mood-btn" data-mood="cry" onclick="selectMood('cry')" title="Sedih / Menangis">
+                            <svg class="w-8 h-8 sm:w-9 sm:h-9" viewBox="0 0 48 48" fill="none">
+                                <circle class="mood-fill" cx="24" cy="24" r="19" fill="#FCD34D"/>
+                                <path class="mood-fill" d="M14 23V38C14 39.5 17 39.5 17 38V23H14Z" fill="#60A5FA"/>
+                                <path class="mood-fill" d="M31 23V38C31 39.5 34 39.5 34 38V23H31Z" fill="#60A5FA"/>
+                                <circle class="mood-outline" cx="24" cy="24" r="19" stroke-width="2.3"/>
+                                <path class="mood-outline" d="M13 21C15 22.5 18 22.5 20 21" stroke-width="2.2" stroke-linecap="round"/>
+                                <path class="mood-outline" d="M28 21C30 22.5 33 22.5 35 21" stroke-width="2.2" stroke-linecap="round"/>
+                                <path class="mood-outline" d="M14 23V37M17 23V37M31 23V37M34 23V37" stroke-width="1.6" stroke-linecap="round"/>
+                                <path class="mood-outline" d="M19 33C21 29.5 27 29.5 29 33" stroke-width="2.3" stroke-linecap="round"/>
+                            </svg>
+                            <span class="mood-label text-[10px] sm:text-xs font-semibold">Sedih</span>
+                        </button>
+
+                        <button type="button" class="mood-btn" data-mood="sad" onclick="selectMood('sad')" title="Kurang Semangat">
+                            <svg class="w-8 h-8 sm:w-9 sm:h-9" viewBox="0 0 48 48" fill="none">
+                                <circle class="mood-fill" cx="24" cy="24" r="19" fill="#FDBA74"/>
+                                <circle class="mood-outline" cx="24" cy="24" r="19" stroke-width="2.3"/>
+                                <circle class="mood-outline" cx="17.5" cy="20.5" r="2" fill="currentColor"/>
+                                <circle class="mood-outline" cx="30.5" cy="20.5" r="2" fill="currentColor"/>
+                                <path class="mood-outline" d="M17 32C19.5 28.5 28.5 28.5 31 32" stroke-width="2.3" stroke-linecap="round"/>
+                            </svg>
+                            <span class="mood-label text-[10px] sm:text-xs font-semibold">Murung</span>
+                        </button>
+
+                        <button type="button" class="mood-btn" data-mood="smile" onclick="selectMood('smile')" title="Tenang & Senang">
+                            <svg class="w-8 h-8 sm:w-9 sm:h-9" viewBox="0 0 48 48" fill="none">
+                                <circle class="mood-fill" cx="24" cy="24" r="19" fill="#FDE047"/>
+                                <ellipse class="mood-fill" cx="13.5" cy="25.5" rx="3" ry="1.8" fill="#FB7185"/>
+                                <ellipse class="mood-fill" cx="34.5" cy="25.5" rx="3" ry="1.8" fill="#FB7185"/>
+                                <circle class="mood-outline" cx="24" cy="24" r="19" stroke-width="2.3"/>
+                                <path class="mood-outline" d="M14.5 21C16 18.5 19 18.5 20.5 21" stroke-width="2.2" stroke-linecap="round"/>
+                                <path class="mood-outline" d="M27.5 21C29 18.5 32 18.5 33.5 21" stroke-width="2.2" stroke-linecap="round"/>
+                                <path class="mood-outline" d="M18 28.5C20.5 32 27.5 32 30 28.5" stroke-width="2.3" stroke-linecap="round"/>
+                            </svg>
+                            <span class="mood-label text-[10px] sm:text-xs font-semibold">Tenang</span>
+                        </button>
+
+                        <button type="button" class="mood-btn" data-mood="love" onclick="selectMood('love')" title="Penuh Syukur & Bahagia">
+                            <svg class="w-8 h-8 sm:w-9 sm:h-9" viewBox="0 0 48 48" fill="none">
+                                <circle class="mood-fill" cx="24" cy="24" r="19" fill="#FDE047"/>
+                                <path class="mood-fill" d="M17.5 23.5C17.5 23.5 13 20.5 13 17.8C13 16.2 14.3 15 15.8 15C16.7 15 17.3 15.5 17.5 16.2C17.7 15.5 18.3 15 19.2 15C20.7 15 22 16.2 22 17.8C22 20.5 17.5 23.5 17.5 23.5Z" fill="#F43F5E"/>
+                                <path class="mood-fill" d="M30.5 23.5C30.5 23.5 26 20.5 26 17.8C26 16.2 27.3 15 28.8 15C29.7 15 30.3 15.5 30.5 16.2C30.7 15.5 31.3 15 32.2 15C33.7 15 35 16.2 35 17.8C35 20.5 30.5 23.5 30.5 23.5Z" fill="#F43F5E"/>
+                                <path class="mood-fill" d="M17 28H31C31 32.5 27.8 35 24 35C20.2 35 17 32.5 17 28Z" fill="#FB7185"/>
+                                <circle class="mood-outline" cx="24" cy="24" r="19" stroke-width="2.3"/>
+                                <path class="mood-outline" d="M17.5 23.5C17.5 23.5 13 20.5 13 17.8C13 16.2 14.3 15 15.8 15C16.7 15 17.3 15.5 17.5 16.2C17.7 15.5 18.3 15 19.2 15C20.7 15 22 16.2 22 17.8C22 20.5 17.5 23.5 17.5 23.5Z" stroke-width="1.8" stroke-linejoin="round"/>
+                                <path class="mood-outline" d="M30.5 23.5C30.5 23.5 26 20.5 26 17.8C26 16.2 27.3 15 28.8 15C29.7 15 30.3 15.5 30.5 16.2C30.7 15.5 31.3 15 32.2 15C33.7 15 35 16.2 35 17.8C35 20.5 30.5 23.5 30.5 23.5Z" stroke-width="1.8" stroke-linejoin="round"/>
+                                <path class="mood-outline" d="M17 28H31C31 32.5 27.8 35 24 35C20.2 35 17 32.5 17 28Z" stroke-width="2" stroke-linejoin="round"/>
+                            </svg>
+                            <span class="mood-label text-[10px] sm:text-xs font-semibold">Bahagia</span>
+                        </button>
+
+                        <button type="button" class="mood-btn" data-mood="happy" onclick="selectMood('happy')" title="Ceria & Bersemangat">
+                            <svg class="w-8 h-8 sm:w-9 sm:h-9" viewBox="0 0 48 48" fill="none">
+                                <circle class="mood-fill" cx="24" cy="24" r="19" fill="#FDE047"/>
+                                <path class="mood-fill" d="M16 27.5H32C32 32.5 28.5 35.5 24 35.5C19.5 35.5 16 32.5 16 27.5Z" fill="#FB7185"/>
+                                <circle class="mood-outline" cx="24" cy="24" r="19" stroke-width="2.3"/>
+                                <path class="mood-outline" d="M14 17.5L19.5 20L14 22.5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path class="mood-outline" d="M34 17.5L28.5 20L34 22.5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path class="mood-outline" d="M16 27.5H32C32 32.5 28.5 35.5 24 35.5C19.5 35.5 16 32.5 16 27.5Z" stroke-width="2" stroke-linejoin="round"/>
+                            </svg>
+                            <span class="mood-label text-[10px] sm:text-xs font-semibold">Ceria</span>
+                        </button>
+
+                        <button type="button" class="mood-btn" data-mood="rofl" onclick="selectMood('rofl')" title="Sangat Gembira">
+                            <svg class="w-8 h-8 sm:w-9 sm:h-9" viewBox="0 0 48 48" fill="none">
+                                <g transform="rotate(-12 24 24)">
+                                    <circle class="mood-fill" cx="24" cy="24" r="19" fill="#FACC15"/>
+                                    <path class="mood-fill" d="M16 27H32C32 32.5 28.5 36 24 36C19.5 36 16 32.5 16 27Z" fill="#F43F5E"/>
+                                    <ellipse class="mood-fill" cx="10" cy="24" rx="3.2" ry="2" transform="rotate(-25 10 24)" fill="#38BDF8"/>
+                                    <ellipse class="mood-fill" cx="38" cy="24" rx="3.2" ry="2" transform="rotate(25 38 24)" fill="#38BDF8"/>
+                                    <circle class="mood-outline" cx="24" cy="24" r="19" stroke-width="2.3"/>
+                                    <path class="mood-outline" d="M14 17L19.5 19.5L14 22" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path class="mood-outline" d="M34 17L28.5 19.5L34 22" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path class="mood-outline" d="M16 27H32C32 32.5 28.5 36 24 36C19.5 36 16 32.5 16 27Z" stroke-width="2" stroke-linejoin="round"/>
+                                    <ellipse class="mood-outline" cx="10" cy="24" rx="3.2" ry="2" transform="rotate(-25 10 24)" stroke-width="1.6"/>
+                                    <ellipse class="mood-outline" cx="38" cy="24" rx="3.2" ry="2" transform="rotate(25 38 24)" stroke-width="1.6"/>
+                                </g>
+                            </svg>
+                            <span class="mood-label text-[10px] sm:text-xs font-semibold">Gembira</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="journal-card p-3.5 pt-5 flex-1">
+                    <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 whitespace-nowrap">
+                        <div class="section-pill text-xs py-0.5 px-3.5">
+                            <span>✏️</span>
+                            <span>Evaluasi Harian</span>
+                        </div>
+                    </div>
+                    <textarea data-txt="evaluasi_harian" rows="2" class="journal-textarea pt-1" placeholder="Tulis catatan evaluasi atau rasa syukurmu hari ini..."></textarea>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================================================
+             DEKORASI BAWAH: KUCING TIDUR, TUMBLER & GADIS BERHIJAB
+             (Teks "Ibadah" disejajarkan dengan teks "Rangkuman" di atas gadis berhijab)
+             ========================================================= -->
+        <footer class="flex items-end justify-between gap-2 pt-4 px-1 relative z-10">
+            <!-- Kucing Tidur (Teks "Ibadah" disejajarkan persis dengan teks "Rangkuman" di atas gadis berhijab) -->
+            <button type="button" onclick="goToIbadahPage()" title="Jurnal & Target Ibadah (ibadah.html)" class="w-32 sm:w-40 shrink-0 group relative cursor-pointer focus:outline-none transition-transform duration-200 hover:scale-105 active:scale-95 text-left">
+                <span class="h-6 -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap px-2.5 py-0.5 rounded-full text-[10px] sm:text-[11px] font-bold shadow-sm transition-transform group-hover:-translate-y-0.5 inline-flex items-center justify-center gap-1 absolute" style="background: var(--pill-bg); color: var(--pill-text); border: 1.5px solid var(--pill-border);">
+                    <span>🤲🏻</span>
+                    <span>Ibadah</span>
+                </span>
+                
+                <svg viewBox="0 0 180 115" fill="none" class="w-full h-auto">
+                    <rect x="10" y="92" width="145" height="16" rx="4" fill="var(--bow-dark)" stroke="var(--bow-stroke)" stroke-width="2.5"/>
+                    <line x1="20" y1="100" x2="145" y2="100" stroke="#FFFDF9" stroke-width="3"/>
+                    <rect x="18" y="76" width="132" height="16" rx="4" fill="var(--bow-main)" stroke="var(--bow-stroke)" stroke-width="2.5"/>
+                    <line x1="26" y1="84" x2="140" y2="84" stroke="#FFFDF9" stroke-width="3"/>
+                    <ellipse cx="86" cy="58" rx="42" ry="20" fill="#FFFDF9" stroke="var(--bow-stroke)" stroke-width="2.5"/>
+                    <path d="M85 38C98 38 110 43 114 52C104 54 92 50 85 38Z" fill="#9E9A95"/>
+                    <path d="M46 62C30 62 24 72 34 76C44 79 56 74 64 72" fill="#FFFDF9" stroke="var(--bow-stroke)" stroke-width="2.5" stroke-linecap="round"/>
+                    <circle cx="62" cy="54" r="18" fill="#FFFDF9" stroke="var(--bow-stroke)" stroke-width="2.5"/>
+                    <path d="M47 42L45 28L57 37Z" fill="#9E9A95" stroke="var(--bow-stroke)" stroke-width="2.3" stroke-linejoin="round"/>
+                    <path d="M68 37L78 28L77 43Z" fill="#FFFDF9" stroke="var(--bow-stroke)" stroke-width="2.3" stroke-linejoin="round"/>
+                    <path d="M51 54C53 56 56 56 58 54" stroke="var(--bow-stroke)" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M65 54C67 56 70 56 72 54" stroke="var(--bow-stroke)" stroke-width="2" stroke-linecap="round"/>
+                    <ellipse cx="50" cy="58" rx="3" ry="1.8" fill="#F4A4B8"/>
+                    <ellipse cx="73" cy="58" rx="3" ry="1.8" fill="#F4A4B8"/>
+                    <path d="M60 58L61.5 60L63 58" stroke="var(--bow-stroke)" stroke-width="1.8" stroke-linecap="round"/>
+                </svg>
+            </button>
+
+            <!-- Tumbler Berpita -->
+            <div class="w-12 sm:w-14 shrink-0 mb-1">
+                <svg viewBox="0 0 70 110" fill="none" class="w-full h-auto">
+                    <rect x="32" y="6" width="6" height="18" rx="2" fill="var(--bow-dark)" stroke="var(--bow-stroke)" stroke-width="2.2"/>
+                    <rect x="12" y="22" width="46" height="9" rx="4" fill="var(--bow-dark)" stroke="var(--bow-stroke)" stroke-width="2.3"/>
+                    <path d="M16 31H54L50 102H20L16 31Z" fill="#F7F5F0" stroke="var(--bow-stroke)" stroke-width="2.4" stroke-linejoin="round"/>
+                    <path d="M32 64C25 57 18 58 18 64C18 70 25 71 32 65Z" fill="var(--bow-main)" stroke="var(--bow-stroke)" stroke-width="2"/>
+                    <path d="M38 64C45 57 52 58 52 64C52 70 45 71 38 65Z" fill="var(--bow-main)" stroke="var(--bow-stroke)" stroke-width="2"/>
+                    <circle cx="35" cy="64.5" r="3.5" fill="var(--bow-dark)" stroke="var(--bow-stroke)" stroke-width="2"/>
+                </svg>
+            </div>
+
+            <!-- Gadis Berhijab (Klik untuk masuk ke recap.html) -->
+            <button type="button" onclick="goToRecapPage()" title="Klik untuk buka Rangkuman Bulanan (recap.html)" class="w-32 sm:w-40 shrink-0 group relative cursor-pointer focus:outline-none transition-transform duration-200 hover:scale-105 active:scale-95 text-left">
+                <span class="h-6 -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap px-2.5 py-0.5 rounded-full text-[10px] sm:text-[11px] font-bold shadow-sm transition-transform group-hover:-translate-y-0.5 inline-flex items-center justify-center gap-1 absolute" style="background: var(--pill-bg); color: var(--pill-text); border: 1.5px solid var(--pill-border);">
+                    <span>🏆</span>
+                    <span>Rangkuman</span>
+                </span>
+                <svg viewBox="0 0 170 140" fill="none" class="w-full h-auto">
+                    <path d="M45 65C45 30 72 14 98 14C126 14 148 34 152 72C155 102 158 125 162 138H34C36 112 45 92 45 65Z" fill="var(--bow-dark)" stroke="var(--bow-stroke)" stroke-width="2.6" stroke-linejoin="round"/>
+                    <path d="M62 62C62 42 76 30 94 30C110 30 120 42 120 62C120 80 108 92 92 92C75 92 62 80 62 62Z" fill="#FCE5D4" stroke="var(--bow-stroke)" stroke-width="2.4"/>
+                    <g transform="translate(122, 46) rotate(18)">
+                        <path d="M10 8C4 2 -2 3 -2 8C-2 13 4 14 10 9Z" fill="var(--ribbon-bg)" stroke="var(--bow-stroke)" stroke-width="2"/>
+                        <path d="M14 8C20 2 26 3 26 8C26 13 20 14 14 9Z" fill="var(--ribbon-bg)" stroke="var(--bow-stroke)" stroke-width="2"/>
+                        <circle cx="12" cy="8.5" r="2.8" fill="var(--bow-main)" stroke="var(--bow-stroke)" stroke-width="1.8"/>
+                    </g>
+                    <path d="M38 138C38 112 52 96 74 96H118C136 96 146 112 148 138H38Z" fill="#F2E6D5" stroke="var(--bow-stroke)" stroke-width="2.5"/>
+                    <path d="M54 114C50 98 56 84 68 82C74 81 78 86 74 94L66 114" fill="#FCE5D4" stroke="var(--bow-stroke)" stroke-width="2.3" stroke-linecap="round"/>
+                    <path d="M84 106L134 96L144 138H92L84 106Z" fill="var(--bow-main)" stroke="var(--bow-stroke)" stroke-width="2.5" stroke-linejoin="round"/>
+                    <circle cx="115" cy="118" r="7" fill="var(--ribbon-bg)" stroke="var(--bow-stroke)" stroke-width="1.8"/>
+                    <circle cx="115" cy="118" r="2.5" fill="var(--star-fill)"/>
+                </svg>
+            </button>
+        </footer>
+    </main>
+
+    <!-- MODAL KONFIRMASI RESET -->
+    <div id="reset-modal" class="fixed inset-0 bg-black/40 backdrop-blur-xs z-50 hidden items-center justify-center p-4">
+        <div class="bg-white border-2 border-blue-200 rounded-3xl p-5 max-w-xs w-full text-center shadow-xl">
+            <h3 class="font-title text-lg font-bold text-slate-800 mb-1">Reset Jurnal Hari Ini?</h3>
+            <p class="text-xs text-slate-600 mb-4">Semua centang, isian teks, air minum, dan mood hari ini akan dikosongkan kembali.</p>
+            <div class="flex gap-2">
+                <button onclick="closeResetModal()" class="flex-1 py-2 rounded-xl bg-slate-100 text-slate-700 font-bold text-xs hover:bg-slate-200">Batal</button>
+                <button onclick="executeReset()" class="flex-1 py-2 rounded-xl bg-blue-600 text-white font-bold text-xs hover:bg-blue-700">Ya, Reset</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFIKASI RESET OTOMATIS JAM 12 MALAM -->
+    <div id="auto-reset-toast" class="fixed bottom-4 right-4 bg-slate-900 text-white text-xs sm:text-sm font-semibold px-4 py-3 rounded-2xl shadow-xl border border-slate-700 hidden items-center gap-2 z-50">
+        <span>🕛</span>
+        <span>Hari baru telah tiba! Data kemarin sudah diarsipkan ke rangkuman bulanan.</span>
+    </div>
+
+    <script>
+        /* =========================================================
+           1. STATE, ARSIP HARIAN & BULANAN + RESET OTOMATIS JAM 00:00
+           ========================================================= */
+        const STORAGE_KEY_JOURNAL = 'jurnal_ibadah_data_v3';
+        const STORAGE_KEY_DATE = 'jurnal_ibadah_date_v3';
+        const STORAGE_KEY_THEME = 'jurnal_ibadah_theme_v3';
+        const STORAGE_KEY_HISTORY = 'jurnal_ibadah_history_v1';
+        const STORAGE_KEY_LAST_RECAP_MONTH = 'jurnal_ibadah_last_recap_month_v1';
+
+        let journalState = {
+            checkboxes: {},
+            texts: {},
+            water: 0,
+            sport: null,
+            mood: null
+        };
+
+        let dailyHistory = {};
+
+        function getTodayDateString(dateObj = new Date()) {
+            const year = dateObj.getFullYear();
+            const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+            const day = String(dateObj.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+
+        function getMonthString(dateStr) {
+            return dateStr.slice(0, 7);
+        }
+
+        function getPreviousMonthString(currentMonthStr) {
+            const [y, m] = currentMonthStr.split('-').map(Number);
+            const prevDate = new Date(y, m - 2, 1);
+            return `${prevDate.getFullYear()}-${String(prevDate.getMonth() + 1).padStart(2, '0')}`;
+        }
+
+        function formatIndonesianDate(dateObj) {
+            return dateObj.toLocaleDateString('id-ID', {
+                weekday: 'long',
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
+            });
+        }
+
+        function formatMonthTitle(monthStr) {
+            const [y, m] = monthStr.split('-').map(Number);
+            const d = new Date(y, m - 1, 1);
+            return d.toLocaleDateString('id-ID', { month: 'long', year: 'numeric' });
+        }
+
+        function hasAnyEntry(entry) {
+            if (!entry) return false;
+            const hasCb = Object.values(entry.checkboxes || {}).some(Boolean);
+            const hasTxt = Object.values(entry.texts || {}).some(v => v && String(v).trim().length > 0);
+            const hasWater = (entry.water || 0) > 0;
+            const hasSport = Boolean(entry.sport);
+            const hasMood = Boolean(entry.mood);
+            return hasCb || hasTxt || hasWater || hasSport || hasMood;
+        }
+
+        function loadHistoryFromStorage() {
+            try {
+                const rawHist = localStorage.getItem(STORAGE_KEY_HISTORY);
+                dailyHistory = rawHist ? JSON.parse(rawHist) : {};
+            } catch (e) {
+                dailyHistory = {};
+            }
+        }
+
+        function saveHistoryToStorage() {
+            localStorage.setItem(STORAGE_KEY_HISTORY, JSON.stringify(dailyHistory));
+        }
+
+        let activeDateStr = getTodayDateString();
+
+        function loadStateAndCheckMidnight(showToast = false) {
+            loadHistoryFromStorage();
+            const todayStr = getTodayDateString();
+            const todayMonthStr = getMonthString(todayStr);
+            const savedDate = localStorage.getItem(STORAGE_KEY_DATE);
+            const savedRaw = localStorage.getItem(STORAGE_KEY_JOURNAL);
+
+            let monthJustChanged = false;
+            let previousMonthToShow = null;
+
+            if (savedDate && savedDate !== todayStr) {
+                if (savedRaw) {
+                    try {
+                        const prevParsed = JSON.parse(savedRaw);
+                        if (hasAnyEntry(prevParsed)) {
+                            dailyHistory[savedDate] = prevParsed;
+                            saveHistoryToStorage();
+                        }
+                    } catch (e) {}
+                }
+
+                const savedMonthStr = getMonthString(savedDate);
+                if (savedMonthStr !== todayMonthStr) {
+                    monthJustChanged = true;
+                    previousMonthToShow = savedMonthStr;
+                }
+
+                journalState = { checkboxes: {}, texts: {}, water: 0, sport: null, mood: null };
+                localStorage.setItem(STORAGE_KEY_JOURNAL, JSON.stringify(journalState));
+                localStorage.setItem(STORAGE_KEY_DATE, todayStr);
+                activeDateStr = todayStr;
+                if (showToast) showAutoResetToast();
+            } else {
+                activeDateStr = todayStr;
+                localStorage.setItem(STORAGE_KEY_DATE, todayStr);
+                if (savedRaw) {
+                    try {
+                        const parsed = JSON.parse(savedRaw);
+                        journalState = {
+                            checkboxes: parsed.checkboxes || {},
+                            texts: parsed.texts || {},
+                            water: parsed.water || 0,
+                            sport: parsed.sport || null,
+                            mood: parsed.mood || null
+                        };
+                    } catch (e) {}
+                } else if (dailyHistory[todayStr]) {
+                    journalState = JSON.parse(JSON.stringify(dailyHistory[todayStr]));
+                }
+            }
+
+            if (hasAnyEntry(journalState)) {
+                dailyHistory[todayStr] = JSON.parse(JSON.stringify(journalState));
+                saveHistoryToStorage();
+            }
+
+            document.getElementById('current-date-label').textContent = formatIndonesianDate(new Date());
+
+            const lastRecapSeen = localStorage.getItem(STORAGE_KEY_LAST_RECAP_MONTH);
+            const prevMonth = previousMonthToShow || getPreviousMonthString(todayMonthStr);
+            const prevMonthHasData = Object.keys(dailyHistory).some(d => d.startsWith(prevMonth) && hasAnyEntry(dailyHistory[d]));
+
+            if ((monthJustChanged || (prevMonthHasData && lastRecapSeen !== todayMonthStr))) {
+                localStorage.setItem(STORAGE_KEY_LAST_RECAP_MONTH, todayMonthStr);
+                setTimeout(() => {
+                    window.location.href = 'recap.html?month=' + prevMonth + '&new=1';
+                }, 450);
+            }
+        }
+
+        function saveState() {
+            const todayStr = getTodayDateString();
+            localStorage.setItem(STORAGE_KEY_JOURNAL, JSON.stringify(journalState));
+            localStorage.setItem(STORAGE_KEY_DATE, todayStr);
+
+            if (hasAnyEntry(journalState)) {
+                dailyHistory[todayStr] = JSON.parse(JSON.stringify(journalState));
+            } else {
+                delete dailyHistory[todayStr];
+            }
+            saveHistoryToStorage();
+
+            const badge = document.getElementById('save-status-badge');
+            if (badge) {
+                badge.textContent = '✅ Tersimpan ke arsip ' + formatMonthTitle(getMonthString(todayStr));
+            }
+            updateDailyProgressBar();
+        }
+
+        function updateDailyProgressBar() {
+            const totalCheckboxes = document.querySelectorAll('.cb-box').length || 34;
+            const checkedCount = Object.values(journalState.checkboxes || {}).filter(Boolean).length;
+            const textFilledCount = Object.values(journalState.texts || {}).filter(v => v && String(v).trim().length > 0).length;
+            const extraPoints = (journalState.water > 0 ? 1 : 0) + (journalState.sport ? 1 : 0) + (journalState.mood ? 1 : 0) + Math.min(textFilledCount, 5);
+            const totalUnits = totalCheckboxes + 8;
+            const pct = Math.min(100, Math.round(((checkedCount + extraPoints) / totalUnits) * 100));
+
+            const bar = document.getElementById('daily-progress-bar');
+            const label = document.getElementById('daily-progress-label');
+            if (bar) bar.style.width = `${pct}%`;
+            if (label) label.textContent = `${pct}% Terisi`;
+        }
+
+        function startMidnightWatcher() {
+            const countdownEl = document.getElementById('midnight-countdown');
+            function tick() {
+                const now = new Date();
+                const currentDayStr = getTodayDateString();
+                if (currentDayStr !== activeDateStr) {
+                    loadStateAndCheckMidnight(true);
+                    syncUIToState();
+                }
+                const tomorrow = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0);
+                const diffMs = tomorrow - now;
+                const h = String(Math.floor(diffMs / 3600000)).padStart(2, '0');
+                const m = String(Math.floor((diffMs % 3600000) / 60000)).padStart(2, '0');
+                const s = String(Math.floor((diffMs % 60000) / 1000)).padStart(2, '0');
+                countdownEl.textContent = `${h}:${m}:${s}`;
+            }
+            tick();
+            setInterval(tick, 1000);
+        }
+
+        function showAutoResetToast() {
+            const toast = document.getElementById('auto-reset-toast');
+            toast.classList.remove('hidden');
+            toast.classList.add('flex');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+                toast.classList.remove('flex');
+            }, 5500);
+        }
+
+        /* =========================================================
+           2. PENGATURAN TEMA (DEFAULT BIRU TERANG <-> TEMA GELAP)
+           ========================================================= */
+        function applyTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem(STORAGE_KEY_THEME, theme);
+
+            const topBar = document.getElementById('top-bar');
+            const dateContainer = document.getElementById('date-container');
+            const themeBtn = document.getElementById('theme-toggle-btn');
+            const themeIcon = document.getElementById('theme-icon');
+            const themeLabel = document.getElementById('theme-label');
+            const resetBtn = document.getElementById('reset-btn');
+            const midnightBar = document.getElementById('midnight-bar');
+            const countdownEl = document.getElementById('midnight-countdown');
+
+            if (theme === 'dark') {
+                topBar.className = 'w-full max-w-4xl mb-4 bg-[#1f1d1b]/95 backdrop-blur-md border-2 border-[#4a443b] rounded-2xl p-3 sm:px-5 shadow-md flex flex-col gap-2 transition-colors duration-300';
+                dateContainer.className = 'flex items-center gap-2 text-xs sm:text-sm font-bold text-[#f5efe4]';
+                themeBtn.className = 'text-xs sm:text-sm font-bold px-3 py-1.5 rounded-xl border transition active:scale-95 flex items-center gap-1.5 bg-[#ebe0cc] text-[#1f1d1b] border-[#a39784] hover:bg-[#f7f0e4]';
+                themeIcon.textContent = '☀️';
+                themeLabel.textContent = 'Tema Biru';
+                resetBtn.className = 'text-xs sm:text-sm font-bold px-3 py-1.5 rounded-xl border transition active:scale-95 flex items-center gap-1.5 bg-[#2b2824] text-[#e8e1d5] border-[#4a443b] hover:bg-[#38342f]';
+                midnightBar.className = 'flex flex-wrap items-center justify-between text-[11px] sm:text-xs font-semibold text-[#cfc5b4] border-t border-[#36322c] pt-1.5 gap-2';
+                countdownEl.className = 'font-mono font-bold bg-[#2b2824] text-[#f5efe4] px-2 py-0.5 rounded-md border border-[#4a443b]';
+            } else {
+                topBar.className = 'w-full max-w-4xl mb-4 bg-white/90 backdrop-blur-md border-2 border-blue-200 rounded-2xl p-3 sm:px-5 shadow-sm flex flex-col gap-2 transition-colors duration-300';
+                dateContainer.className = 'flex items-center gap-2 text-xs sm:text-sm font-bold text-blue-900';
+                themeBtn.className = 'text-xs sm:text-sm font-bold px-3 py-1.5 rounded-xl border transition active:scale-95 flex items-center gap-1.5 bg-blue-50 text-blue-900 border-blue-300 hover:bg-blue-100';
+                themeIcon.textContent = '🌙';
+                themeLabel.textContent = 'Tema Gelap';
+                resetBtn.className = 'text-xs sm:text-sm font-bold px-3 py-1.5 rounded-xl border transition active:scale-95 flex items-center gap-1.5 bg-slate-100 text-slate-700 border-slate-300 hover:bg-slate-200';
+                midnightBar.className = 'flex flex-wrap items-center justify-between text-[11px] sm:text-xs font-semibold text-blue-800/80 border-t border-blue-100 pt-1.5 gap-2';
+                countdownEl.className = 'font-mono font-bold bg-blue-100/80 text-blue-900 px-2 py-0.5 rounded-md';
+            }
+        }
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme') || 'light';
+            applyTheme(current === 'light' ? 'dark' : 'light');
+        }
+
+        /* =========================================================
+           3. EFEK SUARA LEMBUT & INTERAKSI CHECKBOX, TEKS, AIR, MOOD
+           ========================================================= */
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        function playPopSound(isOn = true) {
+            try {
+                if (audioCtx.state === 'suspended') audioCtx.resume();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(isOn ? 560 : 380, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(isOn ? 820 : 290, audioCtx.currentTime + 0.09);
+                gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.11);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.11);
+            } catch (e) {}
+        }
+
+        function initCheckboxes() {
+            const boxes = document.querySelectorAll('.cb-box');
+            boxes.forEach(box => {
+                box.innerHTML = `<svg fill="none" stroke="currentColor" stroke-width="3.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>`;
+                
+                box.addEventListener('click', () => {
+                    const key = box.getAttribute('data-cb');
+                    const group = box.getAttribute('data-group');
+                    const nextVal = !journalState.checkboxes[key];
+
+                    if (group && nextVal) {
+                        document.querySelectorAll(`.cb-box[data-group="${group}"]`).forEach(sibling => {
+                            const sKey = sibling.getAttribute('data-cb');
+                            journalState.checkboxes[sKey] = false;
+                        });
+                    }
+
+                    journalState.checkboxes[key] = nextVal;
+                    playPopSound(nextVal);
+                    saveState();
+                    syncUIToState();
+                });
+            });
+        }
+
+        function initTextInputs() {
+            const inputs = document.querySelectorAll('[data-txt]');
+            inputs.forEach(el => {
+                el.addEventListener('input', () => {
+                    const key = el.getAttribute('data-txt');
+                    journalState.texts[key] = el.value;
+                    saveState();
+                });
+            });
+        }
+
+        function initWaterDrops() {
+            const container = document.getElementById('water-drops-container');
+            container.innerHTML = '';
+            for (let i = 1; i <= 7; i++) {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'water-drop';
+                btn.setAttribute('data-drop', i);
+                btn.title = `${i} Gelas / Tetes Air`;
+                btn.innerHTML = `
+                    <svg class="w-6 h-7 sm:w-7 sm:h-8" viewBox="0 0 28 34">
+                        <path d="M14 3C14 3 4 14.5 4 22C4 27.5 8.5 31.5 14 31.5C19.5 31.5 24 27.5 24 22C24 14.5 14 3 14 3Z" stroke-linejoin="round"/>
+                    </svg>
+                `;
+                btn.addEventListener('click', () => {
+                    journalState.water = (journalState.water === i) ? i - 1 : i;
+                    playPopSound(true);
+                    saveState();
+                    syncUIToState();
+                });
+                container.appendChild(btn);
+            }
+        }
+
+        function setSport(val) {
+            journalState.sport = (journalState.sport === val) ? null : val;
+            playPopSound(true);
+            saveState();
+            syncUIToState();
+        }
+
+        function selectMood(moodKey) {
+            journalState.mood = (journalState.mood === moodKey) ? null : moodKey;
+            playPopSound(journalState.mood !== null);
+            saveState();
+            syncUIToState();
+        }
+
+        function syncUIToState() {
+            document.querySelectorAll('.cb-box').forEach(box => {
+                const key = box.getAttribute('data-cb');
+                if (journalState.checkboxes[key]) {
+                    box.classList.add('checked');
+                } else {
+                    box.classList.remove('checked');
+                }
+            });
+
+            document.querySelectorAll('[data-txt]').forEach(el => {
+                const key = el.getAttribute('data-txt');
+                el.value = journalState.texts[key] || '';
+            });
+
+            document.querySelectorAll('.water-drop').forEach(drop => {
+                const idx = Number(drop.getAttribute('data-drop'));
+                if (idx <= journalState.water) {
+                    drop.classList.add('filled');
+                } else {
+                    drop.classList.remove('filled');
+                }
+            });
+
+            const btnYa = document.getElementById('sport-ya');
+            const btnTidak = document.getElementById('sport-tidak');
+            btnYa.style.background = journalState.sport === 'ya' ? 'var(--pill-bg)' : 'transparent';
+            btnYa.style.color = journalState.sport === 'ya' ? 'var(--pill-text)' : 'inherit';
+            btnTidak.style.background = journalState.sport === 'tidak' ? 'var(--pill-bg)' : 'transparent';
+            btnTidak.style.color = journalState.sport === 'tidak' ? 'var(--pill-text)' : 'inherit';
+
+            document.querySelectorAll('.mood-btn').forEach(btn => {
+                const m = btn.getAttribute('data-mood');
+                if (journalState.mood === m) {
+                    btn.classList.add('selected');
+                } else {
+                    btn.classList.remove('selected');
+                }
+            });
+
+            updateDailyProgressBar();
+        }
+
+        /* =========================================================
+           4. NAVIGASI KE HALAMAN IBADAH & RANGKUMAN
+           ========================================================= */
+        function goToIbadahPage() {
+            saveState();
+            window.location.href = 'ibadah.html';
+        }
+
+        function goToRecapPage() {
+            saveState();
+            window.location.href = 'recap.html';
+        }
+
+        /* =========================================================
+           5. RESET MANUAL DENGAN MODAL
+           ========================================================= */
+        function confirmReset() {
+            const modal = document.getElementById('reset-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeResetModal() {
+            const modal = document.getElementById('reset-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function executeReset() {
+            journalState = { checkboxes: {}, texts: {}, water: 0, sport: null, mood: null };
+            saveState();
+            playPopSound(false);
+            syncUIToState();
+            closeResetModal();
+        }
+
+        /* =========================================================
+           6. INISIALISASI SAAT HALAMAN DIMUAT
+           ========================================================= */
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem(STORAGE_KEY_THEME) || 'light';
+            applyTheme(savedTheme);
+
+            initCheckboxes();
+            initTextInputs();
+            initWaterDrops();
+
+            loadStateAndCheckMidnight(false);
+            syncUIToState();
+            startMidnightWatcher();
+        });
+    </script>
+</body>
+</html>
